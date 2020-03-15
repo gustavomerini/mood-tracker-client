@@ -1,0 +1,13 @@
+@import "~foundation-sites/scss/foundation";
+@include add-foundation-colors;
+
+h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 4px;
+  margin: 0.5rem 0;
+  color: $white;
+}
+.title-container {
+  background: $primary-color;
+}

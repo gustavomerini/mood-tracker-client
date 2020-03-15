@@ -1,0 +1,7 @@
+- box za item
+  - create touchable area for title and description - clicking on it opens new
+    edit title & description route
+  - create touchable area for item time - setting a time reorders items
+- incorporate ngrx in poroject
+- use MqToolsService to change format of the todo item date time
+

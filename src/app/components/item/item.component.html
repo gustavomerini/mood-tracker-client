@@ -1,0 +1,13 @@
+<div class="date">
+  <moods-list-item-date [eventTime]="item.eventTime"></moods-list-item-date>
+</div>
+<div class="content">
+  <div class="touchable" (click)="toEdit()">
+    <div class="aligner">
+      <h6 class="title">{{item.title}}</h6>
+      <div class="description">
+        {{item.description}}
+      </div>
+    </div>
+  </div>
+</div>

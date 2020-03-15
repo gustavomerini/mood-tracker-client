@@ -1,0 +1,20 @@
+@import "~foundation-sites/scss/foundation";
+@import "mixins/typography";
+
+@include heading("h5");
+
+:host {
+  @include xy-grid;
+  @include xy-gutters($negative: true);
+}
+
+.container {
+  @include xy-cell($breakpoint: auto);
+}
+
+h5.month {
+  margin: 0;
+  padding: 0.25rem 0;
+  font-weight: bold;
+  text-align: center;
+}
