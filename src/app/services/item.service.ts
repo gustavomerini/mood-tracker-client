@@ -1,26 +1,26 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import {
+  EntityCollectionServiceBase,
+  EntityCollectionServiceElementsFactory,
+  DefaultDataServiceConfig
+} from "@ngrx/data";
 
-export interface ITodoItemJson {
-  id: number;
-  createdAt: string;
-  eventTime: string;
-  title: string;
-  description?: string;
-  mood?: number;
-  hasFinished: boolean;
-}
+import { TodoItemModel } from "../store/models";
+
+export const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: "http://localhost:3000",
+  timeout: 3000
+};
 
 @Injectable({
   providedIn: "root"
 })
-export class ItemService {
-  private _apiUrl = "http://localhost:3000";
-  constructor(private _http: HttpClient) {}
-
-  collection(): Promise<Array<ITodoItemJson>> {
-    return this._http
-      .get<Array<ITodoItemJson>>(`${this._apiUrl}/todo-item`)
-      .toPromise();
+export class ItemService extends EntityCollectionServiceBase<TodoItemModel> {
+  constructor(
+    private _http: HttpClient,
+    elementsFactory: EntityCollectionServiceElementsFactory
+  ) {
+    super("todo-item", elementsFactory);
   }
 }

@@ -1,6 +1,8 @@
-<ng-template ngFor let-itemsByMonth [ngForOf]="itemsByMonth">
+<ng-template ngFor let-itemsByMonth [ngForOf]="itemsByMonth$ | async">
   <div class="container">
-    <h5 class="month">{{itemsByMonth.month.formatted}} {{itemsByMonth.year}}</h5>
+    <h5 class="month">
+      {{itemsByMonth.month.formatted}} {{itemsByMonth.year}}
+    </h5>
     <ng-template ngFor let-item [ngForOf]="itemsByMonth.items">
       <moods-item [item]="item"></moods-item>
     </ng-template>

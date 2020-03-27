@@ -7,7 +7,7 @@
       "projectType": "application",
       "prefix": "moods",
       "schematics": {
-        "@schematics/angular:component": {
+        "@ngrx/schematics:component": {
           "style": "scss"
         }
       },
@@ -148,13 +148,14 @@
               "projects/mq-tools/tsconfig.lib.json",
               "projects/mq-tools/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
     }
   },
-  "defaultProject": "MoodTrackerClient"
+  "defaultProject": "MoodTrackerClient",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

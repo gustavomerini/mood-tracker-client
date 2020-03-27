@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { ITodoItemJson } from "../../services/item.service";
+import { TodoItemModel } from "../../store";
 
 @Component({
   selector: "moods-item",
@@ -10,7 +10,7 @@ import { ITodoItemJson } from "../../services/item.service";
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ItemComponent implements OnInit {
-  @Input() item: ITodoItemJson;
+  @Input() item: TodoItemModel;
 
   constructor(private _router: Router) {}
 
