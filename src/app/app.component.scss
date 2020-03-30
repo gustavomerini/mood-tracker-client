@@ -1,5 +1,7 @@
 @import "~foundation-sites/scss/foundation";
 @include add-foundation-colors;
+@include foundation-typography;
+@include foundation-xy-grid-classes;
 
 h3 {
   text-transform: uppercase;

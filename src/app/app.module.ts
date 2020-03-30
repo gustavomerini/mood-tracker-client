@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import {
   EntityDataModule,
@@ -19,7 +20,7 @@ import {
   ItemListComponent,
   ListItemDateComponent
 } from "./components";
-import { defaultDataServiceConfig } from "./services/item.service";
+import { defaultDataServiceConfig } from "./services";
 import { environment } from "../environments/environment";
 import {
   entityConfig,
@@ -40,6 +41,7 @@ import {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MqToolsModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([ItemsByMonthEffects]),

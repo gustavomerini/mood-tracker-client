@@ -1,7 +1,8 @@
 @import "~foundation-sites/scss/foundation";
 @import "mixins/typography";
 
-@include heading("h5");
+@include heading("h3");
+@include foundation-form-text;
 
 :host {
   @include xy-grid;
@@ -12,9 +13,40 @@
   @include xy-cell;
 }
 
-h5.month {
+form {
+  @include xy-grid;
+  @include xy-gutters($negative: true);
+}
+
+.submit {
+  @include xy-cell;
+  [type="submit"] {
+    @include button($expand: true);
+    &[disabled] {
+      @include button-disabled;
+    }
+  }
+}
+.form-input {
+  @include xy-cell;
+  label {
+    @include form-label;
+  }
+  textarea {
+    height: auto;
+    min-width: 100%;
+  }
+  [type="text"] {
+    &.ng-invalid {
+      @include form-input-error;
+    }
+  }
+}
+
+h3.month {
   margin: 0;
   padding: 0.25rem 0;
   font-weight: bold;
   text-align: center;
+  text-transform: unset;
 }

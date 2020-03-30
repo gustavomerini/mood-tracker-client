@@ -10,15 +10,24 @@ import { itemsByMonthActions } from "../actions";
 
 @Injectable()
 export class ItemsByMonthEffects {
-  constructor(private actions$: Actions) {
-    this.actions$.subscribe(a => console.log("action from effects", a));
-  }
+  constructor(private actions$: Actions) {}
 
-  items$: Observable<Action> = createEffect(() => {
+  loadItems$: Observable<Action> = createEffect(() => {
     return this.actions$.pipe(
       ofEntityOp(EntityOp.QUERY_ALL_SUCCESS),
       map(action =>
         itemsByMonthActions.loadItemsByMonth({ items: action.payload.data })
+      )
+    );
+  });
+
+  updateItem$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofEntityOp(EntityOp.SAVE_UPDATE_ONE_SUCCESS),
+      map(action =>
+        itemsByMonthActions.updateItemByMonth({
+          item: action.payload.data.changes
+        })
       )
     );
   });

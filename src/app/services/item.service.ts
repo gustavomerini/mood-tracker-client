@@ -22,5 +22,6 @@ export class ItemService extends EntityCollectionServiceBase<TodoItemModel> {
     elementsFactory: EntityCollectionServiceElementsFactory
   ) {
     super("todo-item", elementsFactory);
+    console.log(this.selectors);
   }
 }

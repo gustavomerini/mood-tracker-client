@@ -1,3 +1,20 @@
 <div class="container">
-  <h5 class="month">Date here</h5>
+  <h3 class="month">{{ formattedDate$ | async }}</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-input">
+      <label>
+        Title
+        <input type="text" formControlName="title" placeholder="Title" />
+      </label>
+    </div>
+    <div class="form-input">
+      <label>
+        Description
+        <textarea formControlName="description"></textarea>
+      </label>
+    </div>
+    <div class="submit">
+      <input type="submit" [disabled]="submitDisabled$ | async" />
+    </div>
+  </form>
 </div>

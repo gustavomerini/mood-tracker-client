@@ -1,9 +1,7 @@
-- incorporate ngrx in poroject
-  - add items-by-month selectors
-  - encapsulate action types in separate module
-- box za item
-  - create touchable area for title and description - clicking on it opens new
-    edit title & description route
+- update funkcionalnost
   - create touchable area for item time - setting a time reorders items
+  - inside edit view date can also be changed
+  - visina description textarea-e treba bit veca
+- format date acc. to locale (edit item etc.)
 - use MqToolsService to change format of the todo item date time
 

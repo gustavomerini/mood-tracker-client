@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { Store, createSelector } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
 import { TodoItemsByMonth, itemsByMonthSelectors, AppState } from "../../store";

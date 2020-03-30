@@ -6,3 +6,8 @@ export const loadItemsByMonth = createAction(
   "[ItemsByMonth] Load ItemsByMonth",
   props<{ items: Array<TodoItemModel> }>()
 );
+
+export const updateItemByMonth = createAction(
+  "[ItemsByMOnth] Update ItemByMonth",
+  props<{ item: TodoItemModel }>()
+);

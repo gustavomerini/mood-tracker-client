@@ -7,7 +7,7 @@ import { ItemService } from "./services/item.service";
   selector: "moods-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent {
   constructor(
