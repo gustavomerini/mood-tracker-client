@@ -124,12 +124,12 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/mq-tools/tsconfig.lib.json",
+            "tsConfig": "projects/mq-tools/tsconfig.json",
             "project": "projects/mq-tools/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/mq-tools/tsconfig.lib.prod.json"
+              "tsConfig": "projects/mq-tools/tsconfig.prod.json"
             }
           }
         },
@@ -147,6 +147,44 @@
             "tsConfig": [
               "projects/mq-tools/tsconfig.lib.json",
               "projects/mq-tools/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "datetime-picker": {
+      "projectType": "library",
+      "root": "projects/datetime-picker",
+      "sourceRoot": "projects/datetime-picker/src",
+      "prefix": "moods",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/datetime-picker/tsconfig.json",
+            "project": "projects/datetime-picker/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/datetime-picker/tsconfig.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/datetime-picker/src/test.ts",
+            "tsConfig": "projects/datetime-picker/tsconfig.spec.json",
+            "karmaConfig": "projects/datetime-picker/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/datetime-picker/tsconfig.lib.json",
+              "projects/datetime-picker/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }

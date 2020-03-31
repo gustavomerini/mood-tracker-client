@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import moment, { Moment } from "moment";
 
-import { TodoItemsByMonth, TodoItemModel } from "../models";
+import { TodoItemsByMonth } from "../models";
 import { itemsByMonthActions } from "../actions";
 
 export const key = "itemsByMonth";
@@ -68,6 +68,6 @@ const itemsByMonthReducer = createReducer(
   })
 );
 
-export function reducer(state: State | undefined, action: Action): State {
+export function reducer(state: State = initialState, action: Action) {
   return itemsByMonthReducer(state, action);
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { fromEvent, pipe, Observable } from "rxjs";
+import { fromEvent, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 export type BreakpointKeys = Array<string>;
@@ -21,7 +21,7 @@ export class MqToolsService {
     this._parseRootCssVariables();
     if (this.enabled) {
       this.current$ = fromEvent(window, "resize").pipe(
-        map((e: Event) => {
+        map(_ => {
           const windowWidth = window.innerWidth;
           let lastbp: number;
           return this.keys.reduce((acc, k) => {

@@ -14,7 +14,11 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["es2018", "dom"],
     "paths": {
-      "mq-tools": ["projects/mq-tools/src/public-api"]
+      "mq-tools": ["dist/mq-tools", "projects/mq-tools/src/public-api"],
+      "datetime-picker": [
+        "dist/datetime-picker",
+        "projects/datetime-picker/src/public-api"
+      ]
     }
   },
   "angularCompilerOptions": {
