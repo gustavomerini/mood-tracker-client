@@ -1,0 +1,19 @@
+@import "~foundation-sites/scss/foundation";
+
+:host {
+  display: flex;
+  flex-basis: 190px;
+  flex-flow: row nowrap;
+}
+input[type="number"] {
+  @include form-element;
+  height: 1.5rem;
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+span {
+  margin: 0 0.3rem;
+  line-height: 1.5rem;
+  color: #aaa;
+}

@@ -1,0 +1,22 @@
+@import "~foundation-sites/scss/foundation";
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+:host(:not(.disabled)) {
+  cursor: pointer;
+}
+:host(.disabled) {
+  cursor: not-allowed;
+  color: #aaa;
+}
+:host(.selected) {
+  background: lighten($primary-color, 30%);
+  color: $white;
+}
+
+.container {
+  display: inline;
+}

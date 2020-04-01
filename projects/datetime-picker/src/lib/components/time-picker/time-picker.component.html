@@ -1,0 +1,17 @@
+<input
+  type="number"
+  [ngModel]="time.hour"
+  (ngModelChange)="onHourChange($event)"
+  placeholder="hour"
+  min="0"
+  max="23"
+/>
+<span>:</span>
+<input
+  type="number"
+  [ngModel]="time.minute"
+  (ngModelChange)="onMinuteChange($event)"
+  placeholder="minute"
+  min="0"
+  max="59"
+/>

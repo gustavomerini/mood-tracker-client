@@ -1,0 +1,51 @@
+<div class="rows">
+  <div class="row top">
+    <div class="cell month">
+      <h3>{{ (month$ | async).formatted }}</h3>
+    </div>
+    <div class="cell year">
+      <h3>{{ (month$ | async).year }}</h3>
+    </div>
+    <div class="cell nav">
+      <a class="prev" (click)="showPrev()">&lt;</a>
+      <a class="next" (click)="showNext()">&gt;</a>
+    </div>
+  </div>
+  <div class="days-content">
+    <div class="row day-labels">
+      <div *ngFor="let d of dayLabels" class="cell">{{d}}</div>
+    </div>
+    <div class="row days">
+      <moods-calendar-day
+        *ngFor="let ipb of (month$ | async).padBegin"
+        [day]="ipb"
+        [disabled]="true"
+        class="cell"
+      >
+      </moods-calendar-day>
+      <moods-calendar-day
+        *ngFor="let date of dates$ | async"
+        [day]="date"
+        [selected]="isSelected$(date) | async"
+        class="cell"
+        (click)="selectDate(date)"
+      >
+      </moods-calendar-day>
+      <moods-calendar-day
+        *ngFor="let ipe of (month$ | async).padEnd"
+        [day]="ipe"
+        [disabled]="true"
+        class="cell"
+      >
+      </moods-calendar-day>
+    </div>
+  </div>
+  <div class="row time-picker">
+    <moods-time-picker
+      [time]="selectedTime$ | async"
+      (timeChange)="onTimeChange($event)"
+    ></moods-time-picker>
+    <a class="btn ok" (click)="onOk()">OK</a>
+    <a class="btn cancel" (click)="onCancel()">Cancel</a>
+  </div>
+</div>

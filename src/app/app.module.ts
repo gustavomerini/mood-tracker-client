@@ -9,8 +9,9 @@ import {
 } from "@ngrx/data";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
-import { MqToolsModule } from "mq-tools";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { MqToolsModule } from "mq-tools";
+import { DatetimePickerModule } from "datetime-picker";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -43,6 +44,7 @@ import {
     HttpClientModule,
     ReactiveFormsModule,
     MqToolsModule,
+    DatetimePickerModule,
     StoreModule.forRoot(appReducers),
     EffectsModule.forRoot([ItemsByMonthEffects]),
     EntityDataModule.forRoot(entityConfig),

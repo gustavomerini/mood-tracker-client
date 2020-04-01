@@ -1,0 +1,100 @@
+@import "~foundation-sites/scss/foundation";
+
+:host {
+  width: 100%;
+  min-width: 220px;
+  display: block;
+  font-size: 14px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.days-content {
+  .cell {
+    flex-basis: percentage(1/7);
+    text-align: center;
+  }
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  min-height: 152px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 30px;
+  &.top {
+    align-items: flex-end;
+    border-bottom: 1px solid;
+    h3 {
+      font-size: 20px;
+      margin: 0;
+    }
+    .month {
+      text-align: left;
+      margin-right: .6rem;
+    }
+    .year {
+      text-align: left;
+      flex-basis: 50%;
+    }
+    .nav {
+      a {
+        user-select: none;
+        cursor: pointer;
+        &:first-child {
+          margin-right: 5px;
+        }
+      }
+      text-align: right;
+      flex-basis: auto;
+    }
+  }
+  &.day-labels {
+    flex-basis: 25px;
+    align-items: flex-end;
+    & > .cell {
+      font-weight: bold;
+    }
+  }
+  &.days {
+    flex-wrap: wrap;
+    border: 0.5px solid #eee;
+    box-sizing: border-box;
+  }
+  &.time-picker {
+    height: 30px;
+    padding-top: 0.3rem;
+    .btn {
+      height: 1.5rem;
+      padding: 0 0.5rem;
+      box-sizing: border-box;
+      line-height: inherit;
+      margin: 0;
+      margin-right: 0.3rem;
+      display: flex;
+      align-items: flex-end;
+      flex-grow: 1;
+    }
+    .btn:last-of-type {
+      margin-right: 0;
+    }
+    moods-time-picker {
+      margin-right: 0.3rem;
+    }
+  }
+}
+
+.btn {
+  &.ok {
+    @include button();
+  }
+  &.cancel {
+    @include button($background: $alert-color, $background-hover: auto);
+  }
+}
