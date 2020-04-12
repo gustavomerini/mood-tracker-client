@@ -2,8 +2,8 @@ import {
   Component,
   ViewEncapsulation,
   HostBinding,
-  Input,
   ViewChild,
+  ViewRef,
   ViewContainerRef
 } from "@angular/core";
 
@@ -16,12 +16,11 @@ import {
 export class ModalComponent {
   constructor() {}
 
-  @HostBinding("class.hidden")
-  @Input()
-  hidden = true;
-
-  @ViewChild("container", { read: ViewContainerRef, static: true })
+  @ViewChild("content", { read: ViewContainerRef })
   content: ViewContainerRef;
+
+  @HostBinding("class.hidden")
+  hidden = true;
 
   hide() {
     this.hidden = true;

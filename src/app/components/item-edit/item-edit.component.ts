@@ -1,12 +1,5 @@
 import moment from "moment";
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewEncapsulation,
-  ViewChild,
-  TemplateRef
-} from "@angular/core";
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Observable, BehaviorSubject, Subscription } from "rxjs";
@@ -15,8 +8,7 @@ import { map, take, skipWhile, tap } from "rxjs/operators";
 
 import { TodoItemModel } from "../../store";
 import { ItemService } from "../../services/item.service";
-import { ModalComponent } from "../modal/modal.component";
-import { ApplicationService } from "../../services/application.service";
+import { ViewManagementService } from "../../services/view-management.service";
 
 @Component({
   selector: "moods-item-edit",
@@ -24,7 +16,7 @@ import { ApplicationService } from "../../services/application.service";
   styleUrls: ["./item-edit.component.scss"],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ItemEditComponent implements OnInit, OnDestroy {
+export class ItemEditComponent implements OnDestroy {
   item$: Observable<TodoItemModel>;
   formattedDate$: Observable<string>;
 
@@ -46,7 +38,6 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private itemService: ItemService,
     private formBuilder: FormBuilder,
-    private appService: ApplicationService
   ) {
     this.route.params
       .pipe(
@@ -77,9 +68,6 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  modalId = 2;
-  private modal = this.appService.modalInstance;
-
   onSubmit() {
     if (this.form.valid) {
       const data: Partial<TodoItemModel> = {
@@ -93,9 +81,6 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    this.modal.show();
-  }
   ngOnDestroy(): void {
     this.submitDisabledSubscription.unsubscribe();
   }

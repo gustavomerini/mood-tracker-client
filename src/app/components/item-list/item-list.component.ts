@@ -3,7 +3,7 @@ import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
 import { TodoItemsByMonth, itemsByMonthSelectors, AppState } from "../../store";
-import { ApplicationService } from "../../services";
+import { ViewManagementService } from "../../services/view-management.service";
 
 @Component({
   selector: "moods-item-list",
@@ -18,10 +18,10 @@ export class ItemListComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private appService: ApplicationService
+    private viewService: ViewManagementService
   ) {}
 
-  private modal = this.appService.modalInstance;
+  private modal = this.viewService.modalInstance;
 
   ngOnInit(): void {
     this.itemsByMonth$ = this.store.select(itemsByMonthSelectors.selectItems);

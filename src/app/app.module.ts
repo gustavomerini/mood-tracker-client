@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, APP_BOOTSTRAP_LISTENER, ComponentRef } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import {
@@ -23,7 +23,7 @@ import {
   ModalComponent
 } from "./components";
 import { ModalContentDirective } from "./directives";
-import { defaultDataServiceConfig } from "./services";
+import { defaultDataServiceConfig, ViewManagementService } from "./services";
 import { environment } from "../environments/environment";
 import {
   entityConfig,
@@ -59,8 +59,20 @@ import {
   ],
   providers: [
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
-    { provide: Pluralizer, useClass: TodoPluralizer }
+    { provide: Pluralizer, useClass: TodoPluralizer },
+    {
+      provide: APP_BOOTSTRAP_LISTENER,
+      deps: [ViewManagementService],
+      useFactory: (viewService: ViewManagementService) => {
+        return (compRef: ComponentRef<any>) => {
+          if (compRef.componentType === ModalComponent) {
+            viewService.registerModalRef(compRef);
+          }
+        };
+      },
+      multi: true
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, ModalComponent]
 })
 export class AppModule {}
