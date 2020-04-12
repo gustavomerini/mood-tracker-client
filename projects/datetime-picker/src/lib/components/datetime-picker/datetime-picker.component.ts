@@ -9,7 +9,7 @@ import {
   Input
 } from "@angular/core";
 import { Store, select } from "@ngrx/store";
-import { Observable, BehaviorSubject, Subscription } from "rxjs";
+import { Observable, BehaviorSubject, Subscription, Subscriber } from "rxjs";
 import { take } from "rxjs/operators";
 import moment from "moment";
 
@@ -19,7 +19,8 @@ import {
   MonthSerialized,
   DatetimeSerialized,
   TimeSerialized,
-  calendarSelectors
+  calendarSelectors,
+  DatetimeObject
 } from "../../store";
 
 @Component({
@@ -36,7 +37,7 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
   dates$: Observable<Array<number>> = this.store.pipe(
     select(calendarSelectors.dates)
   );
-  selectedDate$: Observable<DatetimeSerialized> = this.store.pipe(
+  selectedDatetime$: Observable<DatetimeSerialized> = this.store.pipe(
     select(calendarSelectors.selectedDate)
   );
   selectedTime$: Observable<TimeSerialized> = this.store.pipe(
@@ -45,18 +46,28 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   dayLabels = moment.weekdaysMin();
 
-  private datetime = new BehaviorSubject<DatetimeSerialized>(null);
-  private dtSub: Subscription;
   @Output() datetimeSubmit = new EventEmitter<DatetimeSerialized>();
   @Output() cancel = new EventEmitter<undefined>();
 
-  @Input() resetOnSubmit: boolean = true;
+  @Input() datetimeInit = new DatetimeObject(moment()).serialized;
+  @Input() resetOnAction = true;
 
-  constructor(private store: Store<{ calendar: calendarReducer.State }>) {
-    this.store.dispatch(calendarActions.reset());
-    this.dtSub = this.selectedDate$.subscribe(datetime =>
+  private datetime = new BehaviorSubject<DatetimeSerialized>(null);
+  private dtSub: Subscription;
+
+  constructor(private store: Store<{ calendar: calendarReducer.State }>) {}
+
+  private actionSub: Subscriber<any> = new Subscriber(() => {
+    if (this.resetOnAction) this.dispatchReset();
+  });
+
+  ngOnInit(): void {
+    this.dispatchReset();
+    this.dtSub = this.selectedDatetime$.subscribe(datetime =>
       this.datetime.next(datetime)
     );
+    this.datetimeSubmit.subscribe(this.actionSub);
+    this.cancel.subscribe(this.actionSub);
   }
 
   isSelected$(date: number): Observable<boolean> {
@@ -84,18 +95,18 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   onOk() {
     this.datetimeSubmit.emit(this.datetime.value);
-    if (this.resetOnSubmit) {
-      this.store.dispatch(calendarActions.reset());
-    }
   }
 
   onCancel() {
     this.cancel.emit();
-    this.store.dispatch(calendarActions.reset());
   }
 
-  ngOnInit(): void {}
   ngOnDestroy(): void {
     this.dtSub.unsubscribe();
+    this.actionSub.unsubscribe();
+  }
+
+  private dispatchReset(): void {
+    this.store.dispatch(calendarActions.reset({ dt: this.datetimeInit }));
   }
 }

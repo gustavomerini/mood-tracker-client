@@ -1,9 +1,8 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import moment, { Moment } from "moment";
+import moment from "moment";
 
 import {
   DatetimeSerialized,
-  TimeSerialized,
   MonthSerialized,
   DatetimeObject,
   MonthObject
@@ -24,12 +23,19 @@ export const initialState: State = {
 
 const calendarReducer = createReducer(
   initialState,
-  on(actions.reset, _ => {
-    const m = moment();
-    return {
-      selectedDate: new DatetimeObject(m).serialized,
-      month: new MonthObject(m).serialized
+  on(actions.reset, (_, { dt: datetime }) => {
+    const m = datetime ? undefined : moment();
+    const dt: DatetimeSerialized = m
+      ? new DatetimeObject(m).serialized
+      : (datetime as DatetimeSerialized);
+    let month: MonthSerialized = m
+      ? new MonthObject(m).serialized
+      : new MonthObject(moment({ month: dt.month, year: dt.year })).serialized;
+    const newState = {
+      selectedDate: dt,
+      month: month
     };
+    return newState;
   }),
   on(actions.nextMonth, state => {
     const currentMonth = new MonthObject(
@@ -54,13 +60,13 @@ const calendarReducer = createReducer(
       }
     };
   }),
-  on(actions.selectTime, (state, time: Partial<TimeSerialized>) => {
+  on(actions.selectTime, (state, { hour, minute }) => {
     return {
       ...state,
       selectedDate: {
         ...state.selectedDate,
-        hour: time.hour ? time.hour : state.selectedDate.hour,
-        minute: time.minute ? time.minute : state.selectedDate.minute
+        hour: hour ? hour : state.selectedDate.hour,
+        minute: minute ? minute : state.selectedDate.minute
       }
     };
   })
