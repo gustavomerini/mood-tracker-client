@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
@@ -17,11 +16,7 @@ export const defaultDataServiceConfig: DefaultDataServiceConfig = {
   providedIn: "root"
 })
 export class ItemService extends EntityCollectionServiceBase<TodoItemModel> {
-  constructor(
-    private _http: HttpClient,
-    elementsFactory: EntityCollectionServiceElementsFactory
-  ) {
+  constructor(elementsFactory: EntityCollectionServiceElementsFactory) {
     super("todo-item", elementsFactory);
-    console.log(this.selectors);
   }
 }

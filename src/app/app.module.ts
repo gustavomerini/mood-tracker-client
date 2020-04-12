@@ -19,8 +19,10 @@ import {
   ItemComponent,
   ItemEditComponent,
   ItemListComponent,
-  ListItemDateComponent
+  ListItemDateComponent,
+  ModalComponent
 } from "./components";
+import { ModalContentDirective } from "./directives";
 import { defaultDataServiceConfig } from "./services";
 import { environment } from "../environments/environment";
 import {
@@ -36,7 +38,9 @@ import {
     ItemListComponent,
     ItemComponent,
     ListItemDateComponent,
-    ItemEditComponent
+    ItemEditComponent,
+    ModalContentDirective,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
