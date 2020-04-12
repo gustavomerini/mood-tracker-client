@@ -4,7 +4,15 @@
       {{itemsByMonth.month.formatted}} {{itemsByMonth.year}}
     </h5>
     <ng-template ngFor let-item [ngForOf]="itemsByMonth.items">
-      <moods-item [item]="item"></moods-item>
+      <moods-item [item]="item" (dateClick)="showCalendar()"></moods-item>
     </ng-template>
   </div>
+</ng-template>
+
+<ng-template [modalContentId]="modalId">
+  <moods-datetime-picker
+    (cancel)="onCalendarCancel()"
+    (datetimeSubmit)="onCalendarOk($event)"
+  >
+  </moods-datetime-picker>
 </ng-template>

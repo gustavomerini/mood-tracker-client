@@ -4,7 +4,8 @@ import {
   OnInit,
   OnDestroy,
   ViewEncapsulation,
-  Input
+  ViewChild,
+  TemplateRef
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, Validators } from "@angular/forms";
@@ -12,8 +13,10 @@ import { Observable, BehaviorSubject, Subscription } from "rxjs";
 import { isEqual } from "lodash";
 import { map, take, skipWhile, tap } from "rxjs/operators";
 
-import { TodoItemModel, FilterPattern } from "../../store";
-import { ItemService } from "../../services";
+import { TodoItemModel } from "../../store";
+import { ItemService } from "../../services/item.service";
+import { ModalComponent } from "../modal/modal.component";
+import { ApplicationService } from "../../services/application.service";
 
 @Component({
   selector: "moods-item-edit",
@@ -30,7 +33,9 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     description: [""]
   });
 
-  private _submitDisabled$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  private _submitDisabled$: BehaviorSubject<boolean> = new BehaviorSubject(
+    true
+  );
   private submitDisabledSubscription: Subscription;
   submitDisabled$: Observable<boolean> = this._submitDisabled$.asObservable();
 
@@ -40,7 +45,8 @@ export class ItemEditComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private appService: ApplicationService
   ) {
     this.route.params
       .pipe(
@@ -71,6 +77,9 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     });
   }
 
+  modalId = 2;
+  private modal = this.appService.modalInstance;
+
   onSubmit() {
     if (this.form.valid) {
       const data: Partial<TodoItemModel> = {
@@ -84,7 +93,9 @@ export class ItemEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.modal.show();
+  }
   ngOnDestroy(): void {
     this.submitDisabledSubscription.unsubscribe();
   }

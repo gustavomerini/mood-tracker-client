@@ -1,5 +1,8 @@
 <div class="date">
-  <moods-list-item-date [eventTime]="item.eventTime"></moods-list-item-date>
+  <moods-list-item-date
+    [eventTime]="item.eventTime"
+    (click)="onDateClick()"
+  ></moods-list-item-date>
 </div>
 <div class="content">
   <div class="touchable" (click)="toEdit()">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 
 import { TodoItemModel } from "../../store";
@@ -11,6 +11,7 @@ import { TodoItemModel } from "../../store";
 })
 export class ItemComponent implements OnInit {
   @Input() item: TodoItemModel;
+  @Output() dateClick = new EventEmitter<undefined>();
 
   constructor(private _router: Router) {}
 
@@ -18,5 +19,9 @@ export class ItemComponent implements OnInit {
 
   toEdit() {
     this._router.navigate(["edit", this.item.id]);
+  }
+
+  onDateClick() {
+    this.dateClick.emit();
   }
 }
