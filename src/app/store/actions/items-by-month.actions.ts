@@ -7,12 +7,12 @@ export enum ItemsByMonthOp {
   UPDATE_ONE = "[ibm] update one"
 }
 
-export const loadItemsByMonth = createAction(
+export const load = createAction(
   ItemsByMonthOp.LOAD_ALL,
   props<{ items: Array<TodoItemModel> }>()
 );
 
-export const updateItemByMonth = createAction(
+export const updateOne = createAction(
   ItemsByMonthOp.UPDATE_ONE,
   props<{ item: TodoItemModel }>()
 );

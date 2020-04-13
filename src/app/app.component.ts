@@ -1,6 +1,6 @@
 import { ViewEncapsulation } from "@angular/core";
 import { Component } from "@angular/core";
-import { MqToolsService } from "mq-tools";
+//import { MqToolsService } from "mq-tools";
 import { ItemService } from "./services/item.service";
 
 @Component({

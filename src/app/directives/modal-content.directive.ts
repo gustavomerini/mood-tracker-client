@@ -1,4 +1,10 @@
-import { Directive, Input, TemplateRef, OnInit } from "@angular/core";
+import {
+  Directive,
+  Input,
+  TemplateRef,
+  OnInit,
+  EmbeddedViewRef
+} from "@angular/core";
 import { ViewManagementService } from "../services/view-management.service";
 
 @Directive({
@@ -6,6 +12,7 @@ import { ViewManagementService } from "../services/view-management.service";
 })
 export class ModalContentDirective implements OnInit {
   @Input() modalContentId: number;
+  private view: EmbeddedViewRef<any>;
 
   constructor(
     private viewService: ViewManagementService,
@@ -13,10 +20,11 @@ export class ModalContentDirective implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.viewService.registerView(
-      this.modalContentId,
-      this.template.createEmbeddedView({})
-    );
-    this.viewService.updateModalView(this.modalContentId);
+    this.view = this.template.createEmbeddedView(null);
+    this.viewService.registerView(this.modalContentId, this.view);
+  }
+
+  ngOnDestroy() {
+    this.view.destroy();
   }
 }

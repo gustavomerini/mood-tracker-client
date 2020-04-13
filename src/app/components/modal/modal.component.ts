@@ -6,6 +6,7 @@ import {
   ViewRef,
   ViewContainerRef
 } from "@angular/core";
+import { ViewManagementService } from "../../services/view-management.service";
 
 @Component({
   selector: "moods-modal",
@@ -14,7 +15,7 @@ import {
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ModalComponent {
-  constructor() {}
+  constructor(private viewService: ViewManagementService) {}
 
   @ViewChild("content", { read: ViewContainerRef })
   content: ViewContainerRef;
@@ -23,10 +24,12 @@ export class ModalComponent {
   hidden = true;
 
   hide() {
+    this.content.detach();
     this.hidden = true;
   }
 
-  show() {
+  show(viewId: number) {
+    this.content.insert(this.viewService.getView(viewId));
     this.hidden = false;
   }
 }

@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment";
-import { pick, range } from "../util";
+import { range } from "../util";
 
 export interface Serialized {
   readonly [key: string]: number | string | Array<number> | Serialized;
@@ -66,6 +66,14 @@ export class DatetimeObject implements ISerializable {
   get serialized(): DatetimeSerialized {
     return { ...(this as any) };
   }
+}
+
+export function stringToDatetime(s: string): DatetimeSerialized {
+  return new DatetimeObject(moment(s)).serialized;
+}
+
+export function datetimeToString(dt: DatetimeSerialized): string {
+  return moment(dt).format();
 }
 
 export interface MonthSerialized extends Serialized {

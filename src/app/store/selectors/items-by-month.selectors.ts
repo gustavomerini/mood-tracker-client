@@ -1,10 +1,4 @@
-import {
-  createFeatureSelector,
-  createSelector,
-  Selector,
-  MemoizedSelector,
-  State
-} from "@ngrx/store";
+import { createSelector, Selector, MemoizedSelector } from "@ngrx/store";
 import { AppState, itemsByMonthReducer } from "../reducers";
 import { TodoItemsByMonth } from "../models";
 

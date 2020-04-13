@@ -15,7 +15,7 @@ export class ItemsByMonthEffects {
     this.actions$.pipe(
       ofEntityOp(EntityOp.QUERY_ALL_SUCCESS),
       map((action: EntityAction) =>
-        itemsByMonthActions.loadItemsByMonth({
+        itemsByMonthActions.load({
           items: action.payload.data
         })
       )
@@ -25,11 +25,12 @@ export class ItemsByMonthEffects {
   updateItem$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofEntityOp(EntityOp.SAVE_UPDATE_ONE_SUCCESS),
-      map(action =>
-        itemsByMonthActions.updateItemByMonth({
+      map(action => {
+        console.log(action);
+        return itemsByMonthActions.updateOne({
           item: action.payload.data.changes
-        })
-      )
+        });
+      })
     )
   );
 }
