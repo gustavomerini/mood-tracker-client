@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MoodTrackerClient": {
+    "mood-tracker-client": {
       "projectType": "application",
       "prefix": "moods",
       "schematics": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MoodTrackerClient",
+            "outputPath": "dist/mood-tracler-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "MoodTrackerClient:build"
+            "browserTarget": "mood-tracker-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "MoodTrackerClient:build:production"
+              "browserTarget": "mood-tracker-client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MoodTrackerClient:build"
+            "browserTarget": "mood-tracker-client:build"
           }
         },
         "test": {
@@ -105,11 +105,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "MoodTrackerClient:serve"
+            "devServerTarget": "mood-tracker-client:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "MoodTrackerClient:serve:production"
+              "devServerTarget": "mood-tracker-client:serve:production"
             }
           }
         }
@@ -192,7 +192,7 @@
       }
     }
   },
-  "defaultProject": "MoodTrackerClient",
+  "defaultProject": "mood-tracker-client",
   "cli": {
     "defaultCollection": "@ngrx/schematics"
   }
