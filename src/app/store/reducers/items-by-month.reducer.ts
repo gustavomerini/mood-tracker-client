@@ -2,6 +2,7 @@ import { Action, createReducer, on } from "@ngrx/store";
 import moment, { Moment } from "moment";
 import sortBy from "lodash/sortBy";
 import without from "lodash/without";
+import findIndex from "lodash/findIndex";
 
 import { TodoItemsByMonth, TodoItemModel } from "../models";
 import { itemsByMonthActions } from "../actions";
@@ -27,6 +28,10 @@ const findItemById = (state: State, id: number): TodoItemModel => {
     }
   }
   return res;
+};
+
+const replaceAtIndex = <T>(arr: T[], id: number, replacement: T): Array<T> => {
+  return [...arr.slice(0, id), replacement, ...arr.slice(id + 1)];
 };
 
 const itemsByMonthReducer = createReducer(
@@ -67,9 +72,10 @@ const itemsByMonthReducer = createReducer(
 
     let stateItems = [...state.items];
 
-    const oldMColIdx = stateItems.findIndex(
-      i => i.month.numerical === oldMonth && i.year === oldYear
-    );
+    const oldMColIdx = findIndex(stateItems, {
+      month: { numerical: oldMonth },
+      year: oldYear
+    });
     const oldMCol = { ...stateItems[oldMColIdx] };
 
     if (sameMonthCollection) {
@@ -78,51 +84,35 @@ const itemsByMonthReducer = createReducer(
         [i => moment(i.eventTime).valueOf()]
       );
       return {
-        items: [
-          ...stateItems.slice(0, oldMColIdx),
-          oldMCol,
-          ...stateItems.slice(oldMColIdx + 1)
-        ]
+        items: replaceAtIndex(stateItems, oldMColIdx, oldMCol)
       };
     } else {
       oldMCol.items = without(oldMCol.items, oldItem);
       if (oldMCol.items.length === 0) {
         stateItems = without(stateItems, stateItems[oldMColIdx]);
       } else {
-        stateItems = [
-          ...stateItems.slice(0, oldMColIdx),
-          oldMCol,
-          ...stateItems.slice(oldMColIdx + 1)
-        ];
+        stateItems = replaceAtIndex(stateItems, oldMColIdx, oldMCol);
       }
 
-      const newMColIdx = stateItems.findIndex(
-        i => i.month.numerical === newMonth && i.year === newYear
-      );
+      const newMColIdx = findIndex(stateItems, {
+        month: { numerical: newMonth },
+        year: newYear
+      });
 
       if (newMColIdx === -1) {
-        stateItems = sortBy(
-          [
-            ...stateItems,
-            {
-              month: { numerical: newMonth, formatted: newET.format("MMMM") },
-              year: newYear,
-              items: [item]
-            }
-          ],
-          ["year", i => i.month.numerical]
-        );
+        stateItems.push({
+          month: { numerical: newMonth, formatted: newET.format("MMMM") },
+          year: newYear,
+          items: [item]
+        });
+        stateItems = sortBy(stateItems, ["year", i => i.month.numerical]);
       } else {
         const newMCol = { ...stateItems[newMColIdx] };
         newMCol.items = sortBy(
           [...newMCol.items, item],
           [i => moment(i.eventTime).valueOf()]
         );
-        stateItems = [
-          ...stateItems.slice(0, newMColIdx),
-          newMCol,
-          ...stateItems.slice(newMColIdx + 1)
-        ];
+        stateItems = replaceAtIndex(stateItems, newMColIdx, newMCol);
       }
       return {
         items: stateItems

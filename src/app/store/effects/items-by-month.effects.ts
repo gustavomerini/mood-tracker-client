@@ -26,7 +26,6 @@ export class ItemsByMonthEffects {
     this.actions$.pipe(
       ofEntityOp(EntityOp.SAVE_UPDATE_ONE_SUCCESS),
       map(action => {
-        console.log(action);
         return itemsByMonthActions.updateOne({
           item: action.payload.data.changes
         });
