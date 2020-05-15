@@ -2,7 +2,7 @@
 
 :host {
   display: flex;
-  flex-basis: 190px;
+  flex-basis: 60%;
   flex-flow: row nowrap;
 }
 input[type="number"] {
@@ -11,6 +11,8 @@ input[type="number"] {
   font-size: 0.8rem;
   margin: 0;
   padding: 0 0.5rem;
+  appearance: textfield;
+  min-width: 0;
 }
 span {
   margin: 0 0.3rem;
