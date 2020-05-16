@@ -3,8 +3,6 @@ import {
   OnInit,
   Input,
   ViewEncapsulation,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
   AfterViewInit,
   OnDestroy

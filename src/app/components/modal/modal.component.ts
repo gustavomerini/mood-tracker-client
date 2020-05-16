@@ -3,7 +3,6 @@ import {
   ViewEncapsulation,
   HostBinding,
   ViewChild,
-  ViewRef,
   ViewContainerRef
 } from "@angular/core";
 import { ViewManagementService } from "../../services/view-management.service";
