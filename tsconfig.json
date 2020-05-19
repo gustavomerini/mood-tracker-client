@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,10 +14,13 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["es2018", "dom"],
     "paths": {
-      "mq-tools": ["dist/mq-tools", "projects/mq-tools/src/public-api"],
+      "mq-tools": [
+        "dist/mq-tools",
+        "projects/mq-tools/src/public-api.ts"
+      ],
       "datetime-picker": [
         "dist/datetime-picker",
-        "projects/datetime-picker/src/public-api"
+        "projects/datetime-picker/src/public-api.ts"
       ]
     }
   },

@@ -1,4 +1,8 @@
 @import "breakpoints";
 @import "~foundation-sites/scss/foundation";
 
-@include foundation-global-styles;
+@include foundation-normalize;
+
+body {
+  font-family: font-stack('helvetica');
+}

@@ -1,4 +1,5 @@
 @import "~foundation-sites/scss/foundation";
+@import "~css.gg/icons/scss/add.scss";
 @include add-foundation-colors;
 @include foundation-typography;
 @include foundation-xy-grid-classes;
@@ -12,4 +13,23 @@ h3 {
 }
 .title-container {
   background: $primary-color;
+}
+
+
+div.button-group {
+  justify-items: end;
+  height: 100%;
+  align-items: center;
+  display: grid;
+  grid-auto-columns: 1fr;
+  a {
+    width: 2rem;
+    height:2rem;
+    display:flex;
+    justify-content:center;
+    align-items:center
+  }
+  i {
+    color: $white;
+  }
 }
