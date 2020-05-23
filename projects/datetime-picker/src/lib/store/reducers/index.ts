@@ -1,3 +1,3 @@
-import * as calendarReducer from "./calendar.reducer";
+import * as calendarReducer from './calendar.reducer';
 
 export { calendarReducer };

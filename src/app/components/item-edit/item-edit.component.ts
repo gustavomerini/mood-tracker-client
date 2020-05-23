@@ -1,19 +1,18 @@
-import moment from "moment";
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { FormBuilder, Validators } from "@angular/forms";
-import { Observable, BehaviorSubject, Subscription } from "rxjs";
-import { isEqual } from "lodash";
-import { map, take, skipWhile, tap } from "rxjs/operators";
+import moment from 'moment';
+import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { isEqual } from 'lodash';
+import { map, take, skipWhile, tap } from 'rxjs/operators';
 
-import { TodoItemModel } from "../../store";
-import { ItemService } from "../../services/item.service";
-import { ViewManagementService } from "../../services/view-management.service";
+import { TodoItemModel } from '../../store';
+import { ItemService } from '../../services/item.service';
 
 @Component({
-  selector: "moods-item-edit",
-  templateUrl: "./item-edit.component.html",
-  styleUrls: ["./item-edit.component.scss"],
+  selector: 'moods-item-edit',
+  templateUrl: './item-edit.component.html',
+  styleUrls: ['./item-edit.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ItemEditComponent implements OnDestroy {
@@ -21,8 +20,8 @@ export class ItemEditComponent implements OnDestroy {
   formattedDate$: Observable<string>;
 
   form = this.formBuilder.group({
-    title: ["", Validators.required],
-    description: [""]
+    title: ['', Validators.required],
+    description: ['']
   });
 
   private _submitDisabled$: BehaviorSubject<boolean> = new BehaviorSubject(
@@ -42,7 +41,7 @@ export class ItemEditComponent implements OnDestroy {
     this.route.params
       .pipe(
         take(1),
-        map(p => parseInt(p.id)),
+        map(p => parseInt(p.id, 10)),
         tap(id => (this.id = id))
       )
       .subscribe(id => this.itemService.setFilter({ ids: [id] }));
@@ -87,6 +86,6 @@ export class ItemEditComponent implements OnDestroy {
 
   private formatDate(isoDate: string) {
     const datetime = moment(isoDate);
-    return datetime.format("Do MMMM YYYY");
+    return datetime.format('Do MMMM YYYY');
   }
 }

@@ -1,13 +1,13 @@
-import { Action, createReducer, on } from "@ngrx/store";
-import moment, { Moment } from "moment";
-import sortBy from "lodash/sortBy";
-import without from "lodash/without";
-import findIndex from "lodash/findIndex";
+import { Action, createReducer, on } from '@ngrx/store';
+import moment, { Moment } from 'moment';
+import sortBy from 'lodash/sortBy';
+import without from 'lodash/without';
+import findIndex from 'lodash/findIndex';
 
-import { TodoItemsByMonth, TodoItemModel } from "../models";
-import { itemsByMonthActions } from "../actions";
+import { TodoItemsByMonth, TodoItemModel } from '../models';
+import { itemsByMonthActions } from '../actions';
 
-export const key = "itemsByMonth";
+export const key = 'itemsByMonth';
 
 export interface State {
   items: Array<TodoItemsByMonth>;
@@ -23,7 +23,7 @@ const findItemById = (state: State, id: number): TodoItemModel => {
   for (const ai of items) {
     const is = ai.items;
     res = is.find(i => i.id === id);
-    if (res != undefined) {
+    if (res != null) {
       return res;
     }
   }
@@ -49,7 +49,7 @@ const itemsByMonthReducer = createReducer(
         });
         if (monthCollection == null) {
           const newMonthCollection: TodoItemsByMonth = {
-            month: { numerical: monthNum, formatted: date.format("MMMM") },
+            month: { numerical: monthNum, formatted: date.format('MMMM') },
             year: yearNum,
             items: [i]
           };
@@ -101,11 +101,11 @@ const itemsByMonthReducer = createReducer(
 
       if (newMColIdx === -1) {
         stateItems.push({
-          month: { numerical: newMonth, formatted: newET.format("MMMM") },
+          month: { numerical: newMonth, formatted: newET.format('MMMM') },
           year: newYear,
           items: [item]
         });
-        stateItems = sortBy(stateItems, ["year", i => i.month.numerical]);
+        stateItems = sortBy(stateItems, ['year', i => i.month.numerical]);
       } else {
         const newMCol = { ...stateItems[newMColIdx] };
         newMCol.items = sortBy(

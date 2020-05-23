@@ -1,5 +1,5 @@
-import { ActionReducerMap } from "@ngrx/store";
-import * as itemsByMonthReducer from "./items-by-month.reducer";
+import { ActionReducerMap } from '@ngrx/store';
+import * as itemsByMonthReducer from './items-by-month.reducer';
 
 export interface AppState {
   [itemsByMonthReducer.key]: itemsByMonthReducer.State;

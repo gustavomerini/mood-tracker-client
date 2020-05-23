@@ -1,5 +1,5 @@
-import moment, { Moment } from "moment";
-import { range } from "../util";
+import moment, { Moment } from 'moment';
+import { range } from '../util';
 
 export interface Serialized {
   readonly [key: string]: number | string | Array<number> | Serialized;
@@ -17,7 +17,7 @@ export interface DatetimeSerialized extends Serialized {
   readonly minute: number;
 }
 
-export type TimeSerialized = Pick<DatetimeSerialized, "hour" | "minute">;
+export type TimeSerialized = Pick<DatetimeSerialized, 'hour' | 'minute'>;
 
 export class DatetimeObject implements ISerializable {
   readonly year: number;
@@ -47,7 +47,7 @@ export class DatetimeObject implements ISerializable {
     hour: number,
     minute: number
   ) {
-    if (typeof yearOrMoment === "number") {
+    if (typeof yearOrMoment === 'number') {
       this.year = yearOrMoment;
       this.month = month;
       this.date = day;
@@ -100,9 +100,9 @@ export class MonthObject implements ISerializable {
     this.year = this._d.year();
     this.dates = range(this._d.daysInMonth(), 1);
 
-    const pMonthDays = this._d.clone().subtract(1, "month").daysInMonth();
-    const firstDay = this._d.clone().startOf("month").day();
-    const lastDay = this._d.clone().endOf("month").day();
+    const pMonthDays = this._d.clone().subtract(1, 'month').daysInMonth();
+    const firstDay = this._d.clone().startOf('month').day();
+    const lastDay = this._d.clone().endOf('month').day();
     this.padBegin = range(firstDay)
       .reverse()
       .map(i => pMonthDays - i);
@@ -110,15 +110,15 @@ export class MonthObject implements ISerializable {
   }
 
   get formatted(): string {
-    return this._d.format("MMMM");
+    return this._d.format('MMMM');
   }
 
   getPrevMonth(): MonthObject {
-    return new MonthObject(this._d.clone().subtract(1, "month"));
+    return new MonthObject(this._d.clone().subtract(1, 'month'));
   }
 
   getNextMonth(): MonthObject {
-    return new MonthObject(this._d.clone().add(1, "month"));
+    return new MonthObject(this._d.clone().add(1, 'month'));
   }
 
   get serialized(): MonthSerialized {

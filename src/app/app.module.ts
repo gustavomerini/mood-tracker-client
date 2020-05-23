@@ -1,36 +1,36 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule, APP_BOOTSTRAP_LISTENER, ComponentRef } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, APP_BOOTSTRAP_LISTENER, ComponentRef } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import {
   EntityDataModule,
   DefaultDataServiceConfig,
   Pluralizer
-} from "@ngrx/data";
-import { EffectsModule } from "@ngrx/effects";
-import { StoreModule } from "@ngrx/store";
-import { StoreDevtoolsModule } from "@ngrx/store-devtools";
-import { MqToolsModule } from "mq-tools";
-import { DatetimePickerModule } from "datetime-picker";
+} from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MqToolsModule } from 'mq-tools';
+import { DatetimePickerModule } from 'datetime-picker';
 
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import {
   ItemComponent,
   ItemEditComponent,
   ItemListComponent,
   ListItemDateComponent,
   ModalComponent
-} from "./components";
-import { ModalContentDirective } from "./directives";
-import { defaultDataServiceConfig, ViewManagementService } from "./services";
-import { environment } from "../environments/environment";
+} from './components';
+import { ModalContentDirective } from './directives';
+import { defaultDataServiceConfig, ViewManagementService } from './services';
+import { environment } from '../environments/environment';
 import {
   entityConfig,
   TodoPluralizer,
   ItemsByMonthEffects,
   appReducers
-} from "./store";
+} from './store';
 
 @NgModule({
   declarations: [

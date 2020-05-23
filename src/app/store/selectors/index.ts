@@ -1,3 +1,3 @@
-import * as itemsByMonthSelectors from "./items-by-month.selectors";
+import * as itemsByMonthSelectors from './items-by-month.selectors';
 
 export { itemsByMonthSelectors };

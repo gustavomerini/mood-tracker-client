@@ -4,22 +4,22 @@ import {
   HostBinding,
   ViewChild,
   ViewContainerRef
-} from "@angular/core";
-import { ViewManagementService } from "../../services/view-management.service";
+} from '@angular/core';
+import { ViewManagementService } from '../../services/view-management.service';
 
 @Component({
-  selector: "moods-modal",
-  templateUrl: "./modal.component.html",
-  styleUrls: ["./modal.component.scss"],
+  selector: 'moods-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ModalComponent {
   constructor(private viewService: ViewManagementService) {}
 
-  @ViewChild("content", { read: ViewContainerRef })
+  @ViewChild('content', { read: ViewContainerRef })
   content: ViewContainerRef;
 
-  @HostBinding("class.hidden")
+  @HostBinding('class.hidden')
   hidden = true;
 
   hide() {

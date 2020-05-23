@@ -7,11 +7,11 @@ import {
   EventEmitter,
   OnDestroy,
   Input
-} from "@angular/core";
-import { Store, select } from "@ngrx/store";
-import { Observable, BehaviorSubject, Subscriber } from "rxjs";
-import { take } from "rxjs/operators";
-import moment from "moment";
+} from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
+import { take } from 'rxjs/operators';
+import moment from 'moment';
 
 import {
   calendarActions,
@@ -21,12 +21,12 @@ import {
   TimeSerialized,
   calendarSelectors,
   DatetimeObject
-} from "../../store";
+} from '../../store';
 
 @Component({
-  selector: "moods-datetime-picker",
-  templateUrl: "./datetime-picker.component.html",
-  styleUrls: ["./datetime-picker.component.scss"],
+  selector: 'moods-datetime-picker',
+  templateUrl: './datetime-picker.component.html',
+  styleUrls: ['./datetime-picker.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -80,7 +80,7 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   isSelected$(date: number): Observable<boolean> {
     return this.store.pipe(
-      select(calendarSelectors.isSelectedDate, { date: date }),
+      select(calendarSelectors.isSelectedDate, { date }),
       take(1)
     );
   }
@@ -102,7 +102,7 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
   }
 
   selectDate(date: number) {
-    this.store.dispatch(calendarActions.selectDate({ date: date }));
+    this.store.dispatch(calendarActions.selectDate({ date }));
   }
 
   onOk() {
@@ -121,6 +121,6 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   private dispatchReset(datetime?: DatetimeSerialized): void {
     const dt = datetime ? datetime : this.datetimeInit;
-    this.store.dispatch(calendarActions.reset({ dt: dt }));
+    this.store.dispatch(calendarActions.reset({ dt }));
   }
 }

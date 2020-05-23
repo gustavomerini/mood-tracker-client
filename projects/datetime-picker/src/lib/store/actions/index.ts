@@ -1,2 +1,2 @@
-import * as calendarActions from "./calendar.actions";
+import * as calendarActions from './calendar.actions';
 export { calendarActions };

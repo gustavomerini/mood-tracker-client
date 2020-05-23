@@ -1,15 +1,15 @@
-import { Action, createReducer, on } from "@ngrx/store";
-import moment from "moment";
+import { Action, createReducer, on } from '@ngrx/store';
+import moment from 'moment';
 
 import {
   DatetimeSerialized,
   MonthSerialized,
   DatetimeObject,
   MonthObject
-} from "../models";
-import { calendarActions as actions } from "../actions";
+} from '../models';
+import { calendarActions as actions } from '../actions';
 
-export const key = "calendar";
+export const key = 'calendar';
 
 export interface State {
   selectedDate: DatetimeSerialized;
@@ -28,12 +28,12 @@ const calendarReducer = createReducer(
     const dt: DatetimeSerialized = m
       ? new DatetimeObject(m).serialized
       : (datetime as DatetimeSerialized);
-    let month: MonthSerialized = m
+    const month: MonthSerialized = m
       ? new MonthObject(m).serialized
       : new MonthObject(moment({ month: dt.month, year: dt.year })).serialized;
     const newState = {
       selectedDate: dt,
-      month: month
+      month
     };
     return newState;
   }),
@@ -56,7 +56,7 @@ const calendarReducer = createReducer(
         ...state.selectedDate,
         month: state.month.numerical,
         year: state.month.year,
-        date: date
+        date
       }
     };
   }),

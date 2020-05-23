@@ -1,6 +1,6 @@
-import { createSelector, Selector, MemoizedSelector } from "@ngrx/store";
-import { AppState, itemsByMonthReducer } from "../reducers";
-import { TodoItemsByMonth } from "../models";
+import { createSelector, Selector, MemoizedSelector } from '@ngrx/store';
+import { AppState, itemsByMonthReducer } from '../reducers';
+import { TodoItemsByMonth } from '../models';
 
 export const select: Selector<AppState, itemsByMonthReducer.State> = (
   state: AppState

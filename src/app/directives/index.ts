@@ -1,1 +1,1 @@
-export * from "./modal-content.directive";
+export * from './modal-content.directive';

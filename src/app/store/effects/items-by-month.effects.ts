@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Actions, createEffect } from "@ngrx/effects";
-import { Action } from "@ngrx/store";
-import { ofEntityOp, EntityOp, EntityAction } from "@ngrx/data";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { Actions, createEffect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { ofEntityOp, EntityOp, EntityAction } from '@ngrx/data';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { itemsByMonthActions } from "../actions";
+import { itemsByMonthActions } from '../actions';
 
 @Injectable()
 export class ItemsByMonthEffects {

@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { calendarReducer } from "../reducers";
-import { MonthSerialized, DatetimeSerialized, TimeSerialized } from "../models";
-import { pick } from "../../util";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { calendarReducer } from '../reducers';
+import { MonthSerialized, DatetimeSerialized, TimeSerialized } from '../models';
+import { pick } from '../../util';
 
 type State = calendarReducer.State;
 
@@ -11,7 +11,7 @@ export const month = createSelector(select, (state: State) => state.month);
 
 export const dates = createSelector(
   month,
-  (month: MonthSerialized): Array<number> => month.dates
+  (mth: MonthSerialized): Array<number> => mth.dates
 );
 
 export const selectedDate = createSelector(
@@ -23,16 +23,16 @@ export const isSelectedDate = createSelector(
   month,
   selectedDate,
   (
-    month: MonthSerialized,
+    mth: MonthSerialized,
     selected: DatetimeSerialized,
     props: { date: number }
   ): boolean =>
-    month.year === selected.year &&
-    month.numerical === selected.month &&
+    mth.year === selected.year &&
+    mth.numerical === selected.month &&
     props.date === selected.date
 );
 
 export const selectedTime = createSelector(
   selectedDate,
-  (date: DatetimeSerialized): TimeSerialized => pick(date, "hour", "minute")
+  (date: DatetimeSerialized): TimeSerialized => pick(date, 'hour', 'minute')
 );

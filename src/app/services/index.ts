@@ -1,2 +1,2 @@
-export * from "./item.service";
-export * from "./view-management.service";
+export * from './item.service';
+export * from './view-management.service';

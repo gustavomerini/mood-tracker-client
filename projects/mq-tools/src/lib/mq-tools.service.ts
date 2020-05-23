@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { fromEvent, Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { fromEvent, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export type BreakpointKeys = Array<string>;
 
 export type Breakpoints = { [key: string]: number };
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class MqToolsService {
   enabled = false;
-  keys: BreakpointKeys = ["small", "medium", "large", "xlarge", "xxlarge"];
+  keys: BreakpointKeys = ['small', 'medium', 'large', 'xlarge', 'xxlarge'];
 
   private _breakpoints: Breakpoints;
 
@@ -20,7 +20,7 @@ export class MqToolsService {
   constructor() {
     this._parseRootCssVariables();
     if (this.enabled) {
-      this.current$ = fromEvent(window, "resize").pipe(
+      this.current$ = fromEvent(window, 'resize').pipe(
         map(_ => {
           const windowWidth = window.innerWidth;
           let lastbp: number;
@@ -46,13 +46,13 @@ export class MqToolsService {
   }
 
   private _parseRootCssVariables() {
-    const documentStyles: CSSStyleSheet = <CSSStyleSheet>(
+    const documentStyles: CSSStyleSheet = (
       document.styleSheets[0]
-    );
+    ) as CSSStyleSheet;
     const rootRules: CSSStyleRule | undefined = (Array.from(
       documentStyles.cssRules
-    ) as Array<CSSStyleRule>).find(r => r.selectorText === ":root");
-    if (rootRules == undefined) {
+    ) as Array<CSSStyleRule>).find(r => r.selectorText === ':root');
+    if (rootRules == null) {
       console.warn(
         `Couldn't find :root style rules, MqToolsService remains disabled.`
       );
@@ -61,20 +61,20 @@ export class MqToolsService {
     const rootCssText: string = rootRules.style.cssText;
     const breakpointVars: Array<string> = rootCssText
       .split(/\s*;\s*/)
-      .filter(s => s.startsWith("--breakpoint-"));
+      .filter(s => s.startsWith('--breakpoint-'));
     const breakpoints: Breakpoints = {};
     breakpointVars.forEach(bps => {
       const [v, px] = bps.split(/\s*:\s*/);
-      const regex = new RegExp(this.keys.join("|"));
+      const regex = new RegExp(this.keys.join('|'));
       const match = v.match(regex);
       const str = match ? match[0] : undefined;
-      breakpoints[str] = parseInt(px);
+      breakpoints[str] = parseInt(px, 10);
     });
     console.log(breakpoints);
     if (
       Object.keys(breakpoints)
         .sort()
-        .join(",") !== [...this.keys].sort().join(",")
+        .join(',') !== [...this.keys].sort().join(',')
     ) {
       console.warn(
         `Not all --breakpoint css variables defined. MqToolsService remains disabled`

@@ -6,14 +6,14 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy
-} from "@angular/core";
+} from '@angular/core';
 
-import { TimeSerialized } from "../../store";
+import { TimeSerialized } from '../../store';
 
 @Component({
-  selector: "moods-time-picker",
-  templateUrl: "./time-picker.component.html",
-  styleUrls: ["./time-picker.component.scss"],
+  selector: 'moods-time-picker',
+  templateUrl: './time-picker.component.html',
+  styleUrls: ['./time-picker.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class TimePickerComponent implements OnInit {
@@ -26,14 +26,14 @@ export class TimePickerComponent implements OnInit {
 
   onHourChange(hour: number) {
     if(hour !== this.cachedHour) {
-      this.timeChange.emit({ hour: hour });
+      this.timeChange.emit({ hour });
       this.cachedHour = hour;
     }
   }
 
   onMinuteChange(minute: number) {
     if(minute !== this.cachedMinute) {
-      this.timeChange.emit({ minute: minute });
+      this.timeChange.emit({ minute });
       this.cachedMinute = minute;
     }
   }
