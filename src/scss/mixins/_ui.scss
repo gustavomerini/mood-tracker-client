@@ -3,10 +3,11 @@
   @if $fullHeight {
     height: 100%;
   }
+  box-sizing: border-box;
   cursor: pointer;
   display: flex;
-  box-sizing: border-box;
   padding: $padding;
+
   &:hover {
     border-color: lighten($color, 45%);
   }

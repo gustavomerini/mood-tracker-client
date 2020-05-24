@@ -5,11 +5,12 @@ import { ItemEditComponent } from './components/item-edit/item-edit.component';
 
 const routes: Routes = [
   { path: '', component: ItemListComponent },
-  { path: 'edit/:id', component: ItemEditComponent }
+  { path: 'new', component: ItemEditComponent },
+  { path: 'edit/:id', component: ItemEditComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

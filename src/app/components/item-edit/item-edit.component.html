@@ -1,5 +1,7 @@
 <div class="container">
-  <h3 class="month">{{ formattedDate$ | async }}</h3>
+  <ng-container *ngIf="item$ | async">
+    <h3 class="month">{{ formattedDate$ | async }}</h3>
+  </ng-container>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-input">
       <label>

@@ -1,34 +1,37 @@
-@import "~foundation-sites/scss/foundation";
-@import "~css.gg/icons/scss/add.scss";
+@import '~foundation-sites/scss/foundation';
+@import '~css.gg/icons/scss/add';
 @include add-foundation-colors;
 @include foundation-typography;
 @include foundation-xy-grid-classes;
 
 h3 {
-  text-transform: uppercase;
+  color: $white;
   font-weight: bold;
   letter-spacing: 4px;
   margin: 0.5rem 0;
-  color: $white;
+  text-transform: uppercase;
 }
+
 .title-container {
   background: $primary-color;
 }
 
 
-div.button-group {
-  justify-items: end;
-  height: 100%;
+.button-group {
   align-items: center;
   display: grid;
   grid-auto-columns: 1fr;
+  height: 100%;
+  justify-items: end;
+
   a {
+    align-items: center;
+    display: flex;
+    height: 2rem;
+    justify-content: center;
     width: 2rem;
-    height:2rem;
-    display:flex;
-    justify-content:center;
-    align-items:center
   }
+
   i {
     color: $white;
   }

@@ -13,15 +13,16 @@ import { ItemService } from '../../services/item.service';
   selector: 'moods-item-edit',
   templateUrl: './item-edit.component.html',
   styleUrls: ['./item-edit.component.scss'],
-  encapsulation: ViewEncapsulation.ShadowDom
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class ItemEditComponent implements OnDestroy {
   item$: Observable<TodoItemModel>;
+  isNew$: Observable<boolean> = this.item$.pipe(map(item => item == null));
   formattedDate$: Observable<string>;
 
   form = this.formBuilder.group({
     title: ['', Validators.required],
-    description: ['']
+    description: [''],
   });
 
   private _submitDisabled$: BehaviorSubject<boolean> = new BehaviorSubject(
@@ -36,31 +37,33 @@ export class ItemEditComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.route.params
       .pipe(
         take(1),
-        map(p => parseInt(p.id, 10)),
-        tap(id => (this.id = id))
+        map((p) => (p.id ? parseInt(p.id, 10) : -1)),
+        tap((id) => (this.id = id))
       )
-      .subscribe(id => this.itemService.setFilter({ ids: [id] }));
+      .subscribe((id) => {
+        this.itemService.setFilter({ ids: [id] });
+      });
 
     this.item$ = this.itemService.filteredEntities$.pipe(
-      skipWhile(e => e.length === 0),
+      skipWhile((e) => e.length === 0),
       take(1),
-      map(entries => entries[0])
+      map((entries) => entries[0])
     );
-    this.item$.pipe(take(1)).subscribe(i => {
+    this.item$.pipe(take(1)).subscribe((i) => {
       this.initialData = { title: i.title, description: i.description };
       this.form.patchValue(i);
     });
 
     this.formattedDate$ = this.item$.pipe(
-      map(i => this.formatDate(i.eventTime))
+      map((i) => this.formatDate(i.eventTime))
     );
 
-    this.submitDisabledSubscription = this.form.valueChanges.subscribe(v => {
+    this.submitDisabledSubscription = this.form.valueChanges.subscribe((v) => {
       this._submitDisabled$.next(
         this.form.invalid || isEqual(v, this.initialData)
       );
@@ -69,14 +72,16 @@ export class ItemEditComponent implements OnDestroy {
 
   onSubmit() {
     if (this.form.valid) {
-      const data: Partial<TodoItemModel> = {
-        ...this.form.value,
-        id: this.id
-      };
-      this.itemService
-        .update(data)
-        .pipe(take(1))
-        .subscribe(_ => this._submitDisabled$.next(true));
+      if (this.id !== -1) {
+        const data: Partial<TodoItemModel> = {
+          ...this.form.value,
+          id: this.id,
+        };
+        this.itemService
+          .update(data)
+          .pipe(take(1))
+          .subscribe((_) => this._submitDisabled$.next(true));
+      }
     }
   }
 

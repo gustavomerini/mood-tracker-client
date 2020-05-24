@@ -4,16 +4,16 @@
 // $tag is one of 'h1', 'h2', 'h3', 'h4' etc.
 @mixin heading($tag, $addSmall: false, $responsive: true) {
   #{$tag} {
+    color: $header-color;
     font-family: $header-font-family;
     font-style: $header-font-style;
     font-weight: $header-font-weight;
-    color: $header-color;
     text-rendering: $header-text-rendering;
 
     @if $addSmall {
       small {
-        line-height: 0;
         color: $header-small-font-color;
+        line-height: 0;
       }
     }
   }
@@ -34,15 +34,11 @@
             font-size: $font-size-temp;
           }
           @if map-has-key($header-defs, line-height) {
-            line-height: unitless-calc(
-              map-get($header-defs, line-height),
-              $font-size-temp
-            );
+            line-height: unitless-calc(map-get($header-defs, line-height),
+            $font-size-temp);
           } @else if map-has-key($header-defs, lh) {
-            line-height: unitless-calc(
-              map-get($header-defs, lh),
-              $font-size-temp
-            );
+            line-height: unitless-calc(map-get($header-defs, lh),
+            $font-size-temp);
           } @else if $size == $-zf-zero-breakpoint {
             line-height: unitless-calc($header-lineheight, $font-size-temp);
           }

@@ -10,9 +10,11 @@ const entityMetadata: EntityMetadataMap = {
   TodoItemModel: {
     entityName: 'todo-item',
     filterFn: (entities: Array<TodoItemModel>, pattern: FilterPattern) => {
-      return entities.filter(e => pattern.ids.includes(e.id));
-    }
-  }
+      return entities.filter((e) => {
+        return pattern.ids?.includes(e.id);
+      });
+    },
+  },
 };
 
 const pluralNames = {};
@@ -25,5 +27,5 @@ export class TodoPluralizer extends Pluralizer {
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
-  pluralNames
+  pluralNames,
 };

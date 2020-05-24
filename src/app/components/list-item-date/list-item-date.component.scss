@@ -1,24 +1,29 @@
-@import "~foundation-sites/scss/foundation";
-@import "mixins/ui";
+@import '~foundation-sites/scss/foundation';
+@import 'mixins/ui';
+
 :host {
   display: block;
   height: 100%;
 }
+
 .touchable {
   @include touchable;
-  justify-content: stretch;
   align-items: center;
+  justify-content: stretch;
 }
+
 .container {
-  text-align: center;
-  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  font-size: 0.8rem;
+  text-align: center;
+
   & div {
     width: 100%;
   }
 }
+
 .day-of-month {
   font-size: 1.4rem;
   line-height: 1.2;

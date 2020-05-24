@@ -1,7 +1,7 @@
-@import "~foundation-sites/scss/foundation";
-@import "mixins/typography";
+@import '~foundation-sites/scss/foundation';
+@import 'mixins/typography';
 
-@include heading("h5");
+@include heading('h5');
 
 :host {
   @include xy-grid;
@@ -13,8 +13,8 @@
 }
 
 h5.month {
+  font-weight: bold;
   margin: 0;
   padding: 0.25rem 0;
-  font-weight: bold;
   text-align: center;
 }

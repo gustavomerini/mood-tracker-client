@@ -1,18 +1,18 @@
-@import "~foundation-sites/scss/foundation";
-@import "mixins/typography";
-@import "mixins/ui";
+@import '~foundation-sites/scss/foundation';
+@import 'mixins/typography';
+@import 'mixins/ui';
 
-@include heading("h6");
+@include heading('h6');
 
 :host {
   @include xy-grid;
   @include xy-gutters($negative: true);
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-  margin-bottom: 0.25rem;
   border-bottom: 1px solid;
   border-top: 1px solid;
+  margin-bottom: 0.25rem;
   min-height: 6rem;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 :host(:last-of-type) {
@@ -25,6 +25,7 @@
 
 .content {
   @include xy-cell(9);
+
   & .aligner {
     display: flex;
     flex-direction: column;
@@ -38,15 +39,15 @@
 
 h6.title {
   margin: 0;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .description {
+  background: $light-gray;
+  flex-grow: 1;
+  font-size: 0.8rem;
   margin-top: 0.2rem;
   padding: 0 0.2rem;
-  font-size: 0.8rem;
-  flex-grow: 1;
-  background: $light-gray;
 }
