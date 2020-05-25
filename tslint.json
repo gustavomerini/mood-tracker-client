@@ -6,6 +6,13 @@
     "deprecation": {
       "severity": "warning"
     },
+    "variable-name": {
+      "options": [
+        "check-format",
+        "allow-leading-underscore",
+        "allow-trailing-underscore"
+      ]
+    },
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
@@ -16,6 +23,20 @@
     "max-classes-per-file": false,
     "max-line-length": [true, 140],
     "member-access": false,
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-module",
+      "check-separator",
+      "check-rest-spread",
+      "check-type",
+      "check-typecast",
+      "check-type-operator",
+      "check-preblock",
+      "check-postbrace"
+    ],
     "member-ordering": [
       true,
       {

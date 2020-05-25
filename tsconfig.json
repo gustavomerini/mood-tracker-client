@@ -22,7 +22,17 @@
         "dist/datetime-picker",
         "projects/datetime-picker/src/public-api.ts"
       ]
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-tslint-plugin",
+        "jsEnable": true,
+        "alwaysShowRuleFailuresAsWarnings": false,
+        "ignoreDefinitionFiles": true,
+        "configFile": "./tslint.json",
+        "suppressWhileTypeErrorsPresent": false
+      }
+    ]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
