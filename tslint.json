@@ -48,6 +48,7 @@
         ]
       }
     ],
+    "semicolon": [true, "always"],
     "no-consecutive-blank-lines": false,
     "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-empty": false,
@@ -60,7 +61,7 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "quotemark": [true, "single"],
-    "trailing-comma": false,
+    "trailing-comma": true,
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
