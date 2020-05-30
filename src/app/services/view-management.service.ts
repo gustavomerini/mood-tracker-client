@@ -5,7 +5,7 @@ import { ModalComponent } from '../components/modal/modal.component';
   providedIn: 'root'
 })
 export class ViewManagementService {
-  constructor() {}
+  constructor() { }
 
   get modal(): ModalComponent {
     return this.modalRef.instance;

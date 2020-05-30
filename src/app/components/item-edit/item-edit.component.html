@@ -1,8 +1,17 @@
 <div class="container">
-  <ng-container *ngIf="item$ | async">
-    <h3 class="month">{{ formattedDate$ | async }}</h3>
+  <ng-container *ngIf="!(isNew$ | async)">
+    <h3 class="month">{{ formattedDate }}</h3>
   </ng-container>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ng-container *ngIf="(isNew$ | async)">
+      <div class="form-input">
+        <label>
+          Event time
+          <input type="text" class="datetime"
+            formControlName="eventTime" readonly (click)="openPicker()">
+        </label>
+      </div>
+    </ng-container>
     <div class="form-input">
       <label>
         Title
@@ -20,3 +29,12 @@
     </div>
   </form>
 </div>
+
+<ng-template [appModalContentId]="modalViewId">
+  <moods-datetime-picker
+    #calendar
+    (cancel)="onCalendarCancel()"
+    (datetimeSubmit)="onCalendarOk($event)"
+  >
+  </moods-datetime-picker>
+</ng-template>

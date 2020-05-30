@@ -61,7 +61,7 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
     this.dispatchReset(datetime);
   });
 
-  constructor(private store: Store<{ calendar: calendarReducer.State }>) {}
+  constructor(private store: Store<{ calendar: calendarReducer.State }>) { }
 
   private actionSub: Subscriber<any> = new Subscriber(() => {
     if (this.resetOnAction) this.dispatchReset();
