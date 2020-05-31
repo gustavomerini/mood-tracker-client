@@ -1,21 +1,32 @@
-@import '~foundation-sites/scss/foundation';
-@import '~css.gg/icons/scss/add';
-@include add-foundation-colors;
-@include foundation-typography;
-@include foundation-xy-grid-classes;
+@use 'variables' as *;
+@use 'util/typography';
+@use 'util/container';
+@use 'typography/heads' as h;
+@use '~css.gg/icons/scss/add';
+
+.main {
+  box-sizing: border-box;
+  @include container.base;
+}
+
+@include h.headings(3);
 
 h3 {
   color: $white;
   font-weight: bold;
   letter-spacing: 4px;
-  margin: 0.5rem 0;
+  margin: 0;
   text-transform: uppercase;
 }
 
-.title-container {
+.app-bar {
+  padding: 0.5rem 0;
+  display: flex;
+  @include container.base;
+  justify-content: space-between;
+  align-items: center;
   background: $primary-color;
 }
-
 
 .button-group {
   align-items: center;

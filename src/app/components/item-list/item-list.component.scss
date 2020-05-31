@@ -1,18 +1,8 @@
-@import '~foundation-sites/scss/foundation';
-@import 'mixins/typography';
+@use 'typography/heads' as h;
 
-@include heading('h5');
+@include h.headings(5);
 
-:host {
-  @include xy-grid;
-  @include xy-gutters($negative: true);
-}
-
-.container {
-  @include xy-cell($breakpoint: auto);
-}
-
-h5.month {
+.month {
   font-weight: bold;
   margin: 0;
   padding: 0.25rem 0;

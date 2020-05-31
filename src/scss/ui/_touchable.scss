@@ -1,0 +1,41 @@
+@use 'variables' as *;
+@use 'sass:color' as color;
+
+@mixin touchable($background: $primary-color) {
+  background-color: $background;
+  box-sizing: border-box;
+  border: 1px solid $light-gray;
+  padding: 0.2rem;
+  cursor: pointer;
+  &:hover {
+    border-color: $dark-gray;
+    background-color: darken($background, 5%);
+  }
+}
+
+@mixin button($background: $primary-color, $background-hover: auto, $foreground: $white) {
+  cursor: pointer;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  line-height: inherit;
+  margin: 0;
+  margin-right: 0.3rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  background-color: $background;
+  color: $foreground;
+  border: 0;
+  border-radius: 2px;
+  @if $background-hover == auto {
+    $background-hover: color.scale($background, $lightness: -15%);
+  }
+  &:hover {
+    background-color: $background-hover;
+  }
+  &[disabled] {
+    cursor: not-allowed;
+    background-color: $dark-gray;
+  }
+}

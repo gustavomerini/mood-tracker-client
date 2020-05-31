@@ -1,8 +1,8 @@
-@import 'breakpoints';
-@import '~foundation-sites/scss/foundation';
-
-@include foundation-normalize;
+@use 'breakpoints';
+@use 'variables' as *;
 
 body {
-  font-family: font-stack('helvetica');
+  font-family: $app-font-family;
+  font-size: $app-base-font-size;
+  color: $black;
 }

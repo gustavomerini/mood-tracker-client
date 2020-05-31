@@ -1,42 +1,44 @@
-@import '~foundation-sites/scss/foundation';
-@import 'mixins/typography';
-@import 'mixins/ui';
-
-@include heading('h6');
+@use 'variables' as *;
+@use 'typography/heads' as h;
+@use 'ui/touchable' as t;
 
 :host {
-  @include xy-grid;
-  @include xy-gutters($negative: true);
-  border-bottom: 1px solid;
-  border-top: 1px solid;
-  margin-bottom: 0.25rem;
-  min-height: 6rem;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  display: grid;
+  grid-template-columns: [cols-start] repeat(4, 1fr) [cols-end];
+  grid-gap: 0.5rem;
+  border-top: 1px solid $light-gray;
+  min-height: 5rem;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
 }
 
 :host(:last-of-type) {
   margin-bottom: 0;
+  border-bottom: 1px solid $light-gray;
 }
 
 .date {
-  @include xy-cell(3);
+  grid-column: cols-start / 1;
 }
 
 .content {
-  @include xy-cell(9);
-
-  & .aligner {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
+  grid-column: 2 / cols-end;
 }
 
 .touchable {
-  @include touchable;
+  @include t.touchable($primary-color-light);
+  height: 100%;
+  section {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    div.description {
+      flex-grow: 1;
+    }
+  }
 }
 
+@include h.headings(6);
 h6.title {
   margin: 0;
   overflow: hidden;
@@ -45,7 +47,8 @@ h6.title {
 }
 
 .description {
-  background: $light-gray;
+  background: $white;
+  opacity: 0.8;
   flex-grow: 1;
   font-size: 0.8rem;
   margin-top: 0.2rem;

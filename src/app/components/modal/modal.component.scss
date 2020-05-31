@@ -1,12 +1,13 @@
-@import '~foundation-sites/scss/foundation';
+@use 'variables' as *;
 
 :host {
   align-items: center;
   display: flex;
   height: 100%;
   left: 0;
-  position: absolute;
   top: 0;
+  justify-content: center;
+  position: absolute;
   width: 100%;
 }
 
@@ -25,7 +26,6 @@
 }
 
 .container {
-  @include xy-grid-container;
   background-color: $white;
   z-index: 1;
 }

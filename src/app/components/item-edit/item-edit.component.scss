@@ -1,51 +1,56 @@
-@import '~foundation-sites/scss/foundation';
-@import 'mixins/typography';
-
-@include heading('h3');
-@include foundation-form-text;
+@use 'ui/touchable' as *;
+@use 'variables' as *;
 
 :host {
-  @include xy-grid;
-  @include xy-gutters($negative: true);
+  display: block;
 }
 
 .container {
   padding-top: 0.25rem;
-  @include xy-cell;
 }
 
-form {
-  @include xy-grid;
-  @include xy-gutters($negative: true);
-}
-
-.submit {
-  @include xy-cell;
-
-  [type='submit'] {
-    @include button($expand: true);
-
-    &[disabled] {
-      @include button-disabled;
-    }
-  }
+.submit [type='submit'] {
+  @include button();
 }
 
 .form-input {
-  @include xy-cell;
+  margin-bottom: .5rem;
+
+  input[type='text'], textarea {
+    box-sizing: border-box;
+    border: 1px solid $light-gray;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 2px;
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  input[type='text'] {
+    display: block;
+    height: 28px;
+    padding: 0 0.5em;
+  }
 
   label {
-    @include form-label;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    font-size: 0.9em;
   }
 
   textarea {
     height: 160px;
     max-height: 70vh;
+    max-width: 100%;
     min-width: 100%;
+    padding: 0.5em;
   }
 
   [type='text'].ng-invalid {
-    @include form-input-error;
+    border-color: $alert-color;
   }
 }
 

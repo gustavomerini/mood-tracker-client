@@ -1,0 +1,32 @@
+@use 'sass:map';
+
+$-head-sizes: (
+  'h1': 24px,
+  'h2': 20px,
+  'h3': 19px,
+  'h4': 18px,
+  'h5': 17px,
+  'h6': 16px,
+);
+
+@each $h, $sz in $-head-sizes {
+  %#{$h} {
+    font-size: $sz;
+  }
+}
+
+@mixin headings($start-h: 1, $end-h: null)  {
+  @if $end-h {
+    $-cur-h: $start-h;
+    @while $-cur-h <= $end-h {
+      h#{$-cur-h} {
+        font-size: map.get($-head-sizes, 'h#{$-cur-h}');
+      }
+      $-cur-h: $-cur-h + 1;
+    }
+  } @else {
+    h#{$start-h} {
+      font-size: map.get($-head-sizes, 'h#{$start-h}');
+    }
+  }
+}

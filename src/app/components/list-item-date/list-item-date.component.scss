@@ -1,5 +1,5 @@
-@import '~foundation-sites/scss/foundation';
-@import 'mixins/ui';
+@use 'variables' as *;
+@use 'ui/touchable' as t;
 
 :host {
   display: block;
@@ -7,21 +7,13 @@
 }
 
 .touchable {
-  @include touchable;
-  align-items: center;
-  justify-content: stretch;
-}
-
-.container {
+  @include t.touchable($primary-color-light);
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
   font-size: 0.8rem;
-  text-align: center;
-
-  & div {
-    width: 100%;
-  }
+  height: 100%;
 }
 
 .day-of-month {

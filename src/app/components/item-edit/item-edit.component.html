@@ -5,24 +5,24 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <ng-container *ngIf="(isNew$ | async)">
       <div class="form-input">
-        <label>
+        <label for="eventTime">
           Event time
-          <input type="text" class="datetime"
-            formControlName="eventTime" readonly (click)="openPicker()">
         </label>
+        <input id="eventTime" type="text" class="datetime"
+          formControlName="eventTime" readonly (click)="openPicker()">
       </div>
     </ng-container>
     <div class="form-input">
-      <label>
+      <label for="title">
         Title
-        <input type="text" formControlName="title" placeholder="Title" />
       </label>
+      <input type="text" id="title" formControlName="title" placeholder="Title" />
     </div>
     <div class="form-input">
-      <label>
+      <label for="description">
         Description
-        <textarea formControlName="description"></textarea>
       </label>
+      <textarea id="description" formControlName="description"></textarea>
     </div>
     <div class="submit">
       <input type="submit" [disabled]="submitDisabled$ | async" />
