@@ -1,0 +1,67 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+$-input-font-size: 0.9rem;
+$-input-font-size-small: 0.8rem;
+$-font: $-input-font-size $app-font-family;
+$-font-small: $-input-font-size-small $app-font-family;
+$-label-font-color: color.scale($primary-color, $lightness: -20%);
+
+form {
+  margin-top: 0.5rem;
+}
+
+%form-group-margin-bottom {
+  margin-bottom: .75rem;
+}
+
+%form-input-shared-styles {
+  box-sizing: border-box;
+  border: 1px solid $light-gray;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 2px;
+  &:focus {
+    border-color: $primary-color;
+  }
+}
+
+@mixin line-input($invalid: true, $size: 'regular') {
+  display: block;
+  padding: 0 0.5em;
+  min-width: 0;
+  @if $size == 'small' {
+    font: $-font-small;
+    height: 1.5rem;
+  } @else {
+    font: $-font;
+    height: 1.75rem;
+  }
+  @if $invalid {
+    &.ng-invalid {
+      border-color: $alert-color;
+      color: $alert-color;
+    }
+  }
+}
+
+%form-label {
+  color: $-label-font-color;
+  margin-bottom: 0.23rem;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  width: 100%;
+  display: block;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+%form-textarea {
+  font: $-font;
+  height: 160px;
+  max-height: 70vh;
+  max-width: 100%;
+  min-width: 100%;
+  padding: 0.5em;
+}

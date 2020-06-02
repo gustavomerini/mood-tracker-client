@@ -1,19 +1,17 @@
-@import "~foundation-sites/scss/foundation";
+@use 'ui/forms';
 
 :host {
   display: flex;
   flex-basis: 60%;
   flex-flow: row nowrap;
 }
+
 input[type="number"] {
-  @include form-element;
-  height: 1.5rem;
-  font-size: 0.8rem;
-  margin: 0;
-  padding: 0 0.5rem;
+  @extend %form-input-shared-styles;
+  @include forms.line-input($invalid: false, $size: 'small');
   appearance: textfield;
-  min-width: 0;
 }
+
 span {
   margin: 0 0.3rem;
   line-height: 1.5rem;

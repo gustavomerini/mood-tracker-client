@@ -1,4 +1,5 @@
 @use 'ui/touchable' as *;
+@use 'ui/forms';
 @use 'variables' as *;
 
 :host {
@@ -14,43 +15,22 @@
 }
 
 .form-input {
-  margin-bottom: .5rem;
+  @extend %form-group-margin-bottom;
 
   input[type='text'], textarea {
-    box-sizing: border-box;
-    border: 1px solid $light-gray;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border-radius: 2px;
-    &:focus {
-      border-color: $primary-color;
-    }
+    @extend %form-input-shared-styles;
   }
 
   input[type='text'] {
-    display: block;
-    height: 28px;
-    padding: 0 0.5em;
+    @include forms.line-input();
   }
 
   label {
-    width: 100%;
-    display: block;
-    cursor: pointer;
-    font-size: 0.9em;
+    @extend %form-label;
   }
 
   textarea {
-    height: 160px;
-    max-height: 70vh;
-    max-width: 100%;
-    min-width: 100%;
-    padding: 0.5em;
-  }
-
-  [type='text'].ng-invalid {
-    border-color: $alert-color;
+    @extend %form-textarea;
   }
 }
 

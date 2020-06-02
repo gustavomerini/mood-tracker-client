@@ -4,8 +4,7 @@ import {
   ViewEncapsulation,
   Input,
   Output,
-  EventEmitter,
-  ChangeDetectionStrategy
+  EventEmitter
 } from '@angular/core';
 
 import { TimeSerialized } from '../../store';
@@ -17,7 +16,7 @@ import { TimeSerialized } from '../../store';
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class TimePickerComponent implements OnInit {
-  constructor() {}
+  constructor() { }
   @Input() time: TimeSerialized;
   @Output() timeChange = new EventEmitter<Partial<TimeSerialized>>();
 
@@ -25,18 +24,18 @@ export class TimePickerComponent implements OnInit {
   private cachedHour: number;
 
   onHourChange(hour: number) {
-    if(hour !== this.cachedHour) {
+    if (hour !== this.cachedHour) {
       this.timeChange.emit({ hour });
       this.cachedHour = hour;
     }
   }
 
   onMinuteChange(minute: number) {
-    if(minute !== this.cachedMinute) {
+    if (minute !== this.cachedMinute) {
       this.timeChange.emit({ minute });
       this.cachedMinute = minute;
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
