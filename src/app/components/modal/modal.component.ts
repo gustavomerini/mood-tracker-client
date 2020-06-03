@@ -3,9 +3,11 @@ import {
   ViewEncapsulation,
   HostBinding,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
+  OnDestroy,
 } from '@angular/core';
 import { ViewManagementService } from '../../services/view-management.service';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'moods-modal',
@@ -13,22 +15,34 @@ import { ViewManagementService } from '../../services/view-management.service';
   styleUrls: ['./modal.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom
 })
-export class ModalComponent {
-  constructor(private viewService: ViewManagementService) {}
+export class ModalComponent implements OnDestroy {
+  constructor(private viewService: ViewManagementService) {
+    this.hidden$$.next(true);
+    this.hiddenSubscription = this.hidden$$.subscribe(h => this.hidden = h);
+  }
 
   @ViewChild('content', { read: ViewContainerRef })
   content: ViewContainerRef;
 
   @HostBinding('class.hidden')
-  hidden = true;
+  hidden: boolean;
+
+  private hidden$$ = new Subject<boolean>();
+  hidden$: Observable<boolean> = this.hidden$$.asObservable();
+
+  private hiddenSubscription: Subscription;
 
   hide() {
     this.content.detach();
-    this.hidden = true;
+    this.hidden$$.next(true);
   }
 
   show(viewId: number) {
     this.content.insert(this.viewService.getView(viewId));
-    this.hidden = false;
+    this.hidden$$.next(false);
+  }
+
+  ngOnDestroy() {
+    this.hiddenSubscription.unsubscribe();
   }
 }

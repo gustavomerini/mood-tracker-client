@@ -75,4 +75,4 @@ import {
   ],
   bootstrap: [AppComponent, ModalComponent]
 })
-export class AppModule {}
+export class AppModule { }
