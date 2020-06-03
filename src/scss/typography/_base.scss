@@ -1,0 +1,29 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+%default-anchor {
+  color: $anchor-color;
+  text-decoration: none;
+  &:hover {
+    color: $anchor-color-hover;
+  }
+}
+
+%text-center {
+  text-align: center;
+}
+
+@mixin anchor(
+  $text-decoration: none,
+  $color: $anchor-color,
+  $hover-color: null
+) {
+  @if $hover-color == null {
+    $hover-color: color.scale($color, $lightness: -8%);
+  }
+  color: $color;
+  text-decoration: $text-decoration;
+  &:hover {
+    color: $hover-color;
+  }
+}

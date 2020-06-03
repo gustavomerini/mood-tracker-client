@@ -29,7 +29,7 @@
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/scss", "node_modules"]
+              "includePaths": ["src/scss/"]
             },
             "scripts": []
           },

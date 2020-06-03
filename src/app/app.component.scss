@@ -1,8 +1,9 @@
+@use '~css.gg/icons/scss/add-r';
+
 @use 'variables' as *;
-@use 'util/typography';
 @use 'util/container';
+@use 'typography/base' as typ_base;
 @use 'typography/heads' as h;
-@use '~css.gg/icons/scss/add';
 
 .main {
   box-sizing: border-box;
@@ -17,6 +18,10 @@ h3 {
   letter-spacing: 4px;
   margin: 0;
   text-transform: uppercase;
+}
+
+a {
+  @include typ_base.anchor($color: $white);
 }
 
 .app-bar {
@@ -41,9 +46,5 @@ h3 {
     height: 2rem;
     justify-content: center;
     width: 2rem;
-  }
-
-  i {
-    color: $white;
   }
 }
