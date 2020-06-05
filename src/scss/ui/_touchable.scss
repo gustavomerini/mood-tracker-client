@@ -13,10 +13,22 @@
   }
 }
 
-@mixin button($background: $primary-color, $background-hover: auto, $foreground: $white) {
+@mixin button(
+  $background: $primary-color,
+  $hover-color: auto,
+  $foreground: $white,
+  $custom-height: false,
+  $custom-padding: false,
+  $invert-hover: false, // false - hover color is background, true - hover is foreground
+  $hover-percentage: -15%
+) {
   cursor: pointer;
-  height: 1.5rem;
-  padding: 0 0.5rem;
+  @if $custom-height == false {
+    height: 1.5rem;
+  }
+  @if $custom-padding == false {
+    padding: 0 0.5rem;
+  }
   box-sizing: border-box;
   line-height: inherit;
   margin: 0;
@@ -28,11 +40,20 @@
   color: $foreground;
   border: 0;
   border-radius: 2px;
-  @if $background-hover == auto {
-    $background-hover: color.scale($background, $lightness: -15%);
-  }
   &:hover {
-    background-color: $background-hover;
+    @if $invert-hover == false {
+      @if $hover-color == auto {
+        background-color: color.scale($background, $lightness: $hover-percentage);
+      } @else {
+        background-color: $hover-color;
+      }
+    } @else {
+      @if $hover-color == auto {
+        color: color.scale($foreground, $lightness: $hover-percentage);
+      } @else {
+        color: $hover-color;
+      }
+    }
   }
   &[disabled] {
     cursor: not-allowed;

@@ -6,10 +6,10 @@
     "@angular/core": "^9.1.0",
     "@angular/forms": "^9.1.0",
     "@ngrx/store": "^9.0.0",
-    "rxjs": "~6.5.4",
-    "tslib": "^1.10.0"
+    "rxjs": "~6.5.4"
   },
   "dependencies": {
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "css.gg": "^2.0.0"
   }
 }

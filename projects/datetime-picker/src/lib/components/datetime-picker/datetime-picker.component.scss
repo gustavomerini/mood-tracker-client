@@ -1,5 +1,8 @@
 @use 'ui/touchable' as *;
 @use 'variables' as *;
+@use '~css.gg/icons/scss/arrow-right-r';
+@use '~css.gg/icons/scss/arrow-left-r';
+
 
 :host {
   width: 100%;
@@ -45,8 +48,17 @@
       flex-basis: 50%;
     }
     .nav a {
+      @include button(
+        $background: transparent,
+        $foreground: $black,
+        $invert-hover: true,
+        $custom-height: true,
+        $custom-padding: true,
+        $hover-percentage: 23%
+      );
+      height: 22px;
       user-select: none;
-      cursor: pointer;
+      display: inline-block;
       &:first-child {
         margin-right: 5px;
       }
@@ -85,6 +97,6 @@
     @include button();
   }
   &.cancel {
-    @include button($background: $alert-color, $background-hover: auto);
+    @include button($background: $alert-color, $hover-color: auto);
   }
 }

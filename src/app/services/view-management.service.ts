@@ -16,9 +16,7 @@ export class ViewManagementService {
   private modalRef: ComponentRef<ModalComponent>;
 
   registerView(id: number, view: ViewRef): void {
-    if (this.views.get(id) == null) {
-      this.views.set(id, view);
-    }
+    this.views.set(id, view);
   }
 
   getView(id: number): ViewRef {
