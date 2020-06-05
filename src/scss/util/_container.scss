@@ -1,4 +1,9 @@
-@mixin base {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
+@mixin base($use-padding: true) {
+  @if $use-padding {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  } @else {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
 }

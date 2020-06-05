@@ -1,4 +1,6 @@
 @use 'variables' as *;
+@use 'breakpoints' as *;
+@use 'util/container';
 
 :host {
   align-items: center;
@@ -26,6 +28,19 @@
 }
 
 .container {
+  @include container.base($use-padding: false);
   background-color: $white;
   z-index: 1;
+}
+
+@media screen and (max-width: map-get($breakpoints, 'medium')) {
+  .container {
+    flex-basis: 100%;
+  }
+}
+
+@media screen and (min-width: map-get($breakpoints, 'medium') + 1px) {
+  .container {
+    flex-basis: 80%;
+  }
 }
