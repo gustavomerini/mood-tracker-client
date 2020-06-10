@@ -18,7 +18,7 @@ export class ModalContentDirective implements OnInit, OnDestroy {
   constructor(
     private viewService: ViewManagementService,
     private template: TemplateRef<any>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.view = this.template.createEmbeddedView(null);

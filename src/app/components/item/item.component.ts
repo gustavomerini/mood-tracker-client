@@ -32,7 +32,6 @@ type Action = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
-
   constructor(
     private router: Router,
     private viewService: ViewManagementService,
