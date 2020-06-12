@@ -30,8 +30,15 @@ const findItemById = (state: State, id: number): TodoItemModel => {
   return res;
 };
 
-const replaceAtIndex = <T>(arr: T[], id: number, replacement: T): Array<T> => {
-  return [...arr.slice(0, id), replacement, ...arr.slice(id + 1)];
+// replace item at index and return new array
+// if no replacement object remove item at index and return new array
+const replaceAtIndex = <T>(arr: T[], id: number, replacement?: T): Array<T> => {
+  if (replacement) {
+    return [...arr.slice(0, id), replacement, ...arr.slice(id + 1)];
+  }
+  else {
+    return [...arr.slice(0, id), ...arr.slice(id + 1)];
+  }
 };
 
 const itemsByMonthReducer = createReducer(
@@ -69,16 +76,29 @@ const itemsByMonthReducer = createReducer(
     const { months: oldMonth, years: oldYear } = oldET.toObject();
     const { months: newMonth, years: newYear } = newET.toObject();
     const sameMonthCollection = oldMonth === newMonth && oldYear === newYear;
+    const now = moment();
+    const isBefore = newET.isBefore(now);
 
     let stateItems = [...state.items];
 
+    // old means current state that is being changed, col is collection
+    // item that is being changed is in this months collection of items
     const oldMColIdx = findIndex(stateItems, {
       month: { numerical: oldMonth },
       year: oldYear
     });
     const oldMCol = { ...stateItems[oldMColIdx] };
 
+    // new event time has passed
+    if (isBefore) {
+      return {
+        items: replaceAtIndex(stateItems, oldMColIdx)
+      };
+    }
+
     if (sameMonthCollection) {
+      // if old and new time is in same moth, remove old item
+      // add new and sort
       oldMCol.items = sortBy(
         [...without(oldMCol.items, oldItem), item],
         [i => moment(i.eventTime).valueOf()]

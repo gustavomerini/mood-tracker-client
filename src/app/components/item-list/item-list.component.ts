@@ -15,5 +15,5 @@ export class ItemListComponent {
     itemsByMonthSelectors.selectItems
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) { }
 }
