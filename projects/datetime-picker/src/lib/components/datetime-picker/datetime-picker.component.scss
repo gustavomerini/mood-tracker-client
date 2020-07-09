@@ -1,8 +1,11 @@
 @use 'ui/touchable' as *;
-@use 'variables' as *;
 @use '~css.gg/icons/scss/arrow-right-r';
 @use '~css.gg/icons/scss/arrow-left-r';
 
+$dtp-primary-color: #1779ba !default;
+$dtp-dark-color: #0a0a0a !default;
+$dtp-light-color: #fefefe !default;
+$dtp-alert-color: #cc4b37 !default;
 
 :host {
   width: 100%;
@@ -50,7 +53,7 @@
     .nav a {
       @include button(
         $background: transparent,
-        $foreground: $black,
+        $foreground: $dtp-dark-color,
         $invert-hover: true,
         $custom-height: true,
         $custom-padding: true,
@@ -94,9 +97,15 @@
 
 .btn {
   &.ok {
-    @include button();
+    @include button(
+      $background: $dtp-primary-color,
+      $foreground: $dtp-light-color
+    );
   }
   &.cancel {
-    @include button($background: $alert-color, $hover-color: auto);
+    @include button(
+      $background: $dtp-alert-color,
+      $hover-color: auto
+    );
   }
 }
