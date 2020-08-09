@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import moment from 'moment';
 
 import {
@@ -52,8 +52,9 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
   @Input() datetimeInit = new DatetimeObject(moment()).serialized;
   @Input() datetime$: Observable<DatetimeSerialized>;
   @Input() resetOnAction = false;
+  @Input() disablePast = false;
 
-  private datetime$$ = new BehaviorSubject<DatetimeSerialized>(null);
+  private datetime$$ = new BehaviorSubject<DatetimeSerialized>(undefined);
   private dtSub = new Subscriber<DatetimeSerialized>(datetime =>
     this.datetime$$.next(datetime)
   );
@@ -63,8 +64,8 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<{ calendar: calendarReducer.State }>) { }
 
-  private actionSub: Subscriber<any> = new Subscriber(() => {
-    if (this.resetOnAction) this.dispatchReset();
+  private actionSub: Subscriber<any> = new Subscriber((dt) => {
+    if (this.resetOnAction) this.dispatchReset(dt);
   });
 
   ngOnInit(): void {
@@ -82,6 +83,18 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
     return this.store.pipe(
       select(calendarSelectors.isSelectedDate, { date }),
       take(1)
+    );
+  }
+
+  isPast$(date?: number): Observable<boolean> {
+    return this.month$.pipe(
+      map((m: MonthSerialized) => {
+        if (!this.disablePast) {
+          return false;
+        }
+        const n = moment().subtract(1, 'days');
+        return n.isAfter(moment({ year: m.year, month: m.numerical, date }));
+      })
     );
   }
 

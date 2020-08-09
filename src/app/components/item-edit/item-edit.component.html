@@ -35,6 +35,7 @@
     #calendar
     (cancel)="onCalendarCancel()"
     (datetimeSubmit)="onCalendarOk($event)"
-  >
-  </moods-datetime-picker>
+    [datetimeInit]="datetimeInit"
+    [resetOnAction]="true"
+    [disablePast]="isNew$ | async"></moods-datetime-picker>
 </ng-template>

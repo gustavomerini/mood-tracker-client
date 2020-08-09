@@ -21,17 +21,19 @@ export class ItemEditComponent implements OnDestroy {
   item$: Observable<TodoItemModel>;
   isNew$: Observable<boolean>;
   formattedDate?: string;
+  eventDatetime$ = new BehaviorSubject<DatetimeSerialized>(undefined);
+  datetimeInit: DatetimeSerialized;
 
   modalViewId = 500;
   modal = this.viewService.modal;
 
   form: FormGroup;
 
-  private _submitDisabled$: BehaviorSubject<boolean> = new BehaviorSubject(
+  private submitDisabled$$: BehaviorSubject<boolean> = new BehaviorSubject(
     true
   );
   private submitDisabledSubscription: Subscription;
-  submitDisabled$: Observable<boolean> = this._submitDisabled$.asObservable();
+  submitDisabled$: Observable<boolean> = this.submitDisabled$$.asObservable();
 
   private id: number;
   private initialData: Partial<TodoItemModel> = { };
@@ -46,8 +48,18 @@ export class ItemEditComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private viewService: ViewManagementService
   ) {
+    const n = moment();
+
+    this.datetimeInit = {
+      year: n.year(),
+      month: n.month(),
+      date: n.date(),
+      hour: n.hour(),
+      minute: n.clone().add(15, 'minutes').minute(),
+    };
+
     const fieldsGroup = {
-      eventTime: [this.formatDate(), Validators.required],
+      eventTime: ['', Validators.required],
       title: ['', Validators.required],
       description: ['']
     };
@@ -91,7 +103,7 @@ export class ItemEditComponent implements OnDestroy {
     });
 
     this.submitDisabledSubscription = this.form.valueChanges.subscribe(v => {
-      this._submitDisabled$.next(
+      this.submitDisabled$$.next(
         this.form.invalid || isEqual(v, this.initialData)
       );
     });
@@ -108,6 +120,7 @@ export class ItemEditComponent implements OnDestroy {
       eventTime: this.formattedDate
     });
     this.modal.hide();
+    this.datetimeInit = val;
   }
 
   onCalendarCancel() {
@@ -124,7 +137,7 @@ export class ItemEditComponent implements OnDestroy {
         this.itemService
           .update(data)
           .pipe(take(1))
-          .subscribe(_ => this._submitDisabled$.next(true));
+          .subscribe(_ => this.submitDisabled$$.next(true));
       } else {
         const data: TodoItemModel = {
           ...this.form.value,
@@ -143,7 +156,7 @@ export class ItemEditComponent implements OnDestroy {
     this.itemSubscription.unsubscribe();
   }
 
-  private formatDate(isoDate?: string) {
+  private formatDate(isoDate?: string): string {
     const datetime = moment(isoDate);
     return datetime.format('Do MMMM YYYY - hh:mm');
   }

@@ -21,7 +21,7 @@ export class CalendarDayComponent implements OnInit {
   @HostBinding('class.disabled')
   @Input() disabled = false;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

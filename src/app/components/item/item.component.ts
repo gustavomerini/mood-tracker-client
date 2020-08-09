@@ -88,5 +88,5 @@ export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
     this.actionSub.unsubscribe();
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 }
