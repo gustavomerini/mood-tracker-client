@@ -4,7 +4,7 @@ import { TodoItemModel } from '../models';
 
 export enum ItemsByMonthOp {
   LOAD_ALL = '[ibm] load all',
-  UPDATE_ONE = '[ibm] update one'
+  ADD_OR_UPDATE_ONE = '[ibm] update one'
 }
 
 export const load = createAction(
@@ -12,7 +12,7 @@ export const load = createAction(
   props<{ items: Array<TodoItemModel> }>()
 );
 
-export const updateOne = createAction(
-  ItemsByMonthOp.UPDATE_ONE,
+export const addOrUpdateOne = createAction(
+  ItemsByMonthOp.ADD_OR_UPDATE_ONE,
   props<{ item: TodoItemModel }>()
 );
