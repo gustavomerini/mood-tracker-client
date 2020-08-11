@@ -137,7 +137,9 @@ export class ItemEditComponent implements OnDestroy {
         this.itemService
           .update(data)
           .pipe(take(1))
-          .subscribe(_ => this.submitDisabled$$.next(true));
+          .subscribe(_ => {
+            this.router.navigate(['']);
+          });
       } else {
         const data: TodoItemModel = {
           ...this.form.value,
