@@ -63,11 +63,8 @@ function addOne(stateItems: Array<TodoItemsByMonth>, item: TodoItemModel): Array
 }
 
 function addOrReplaceOne(items: Array<TodoItemsByMonth>, item: TodoItemModel): Array<TodoItemsByMonth> {
-  const now = moment();
-
   const newET = moment(item.eventTime);
   const { months: newMonth, years: newYear } = newET.toObject();
-  const isBefore = newET.isBefore(now);
 
   const oldItem = findItemById(items, item.id);
 
@@ -85,11 +82,6 @@ function addOrReplaceOne(items: Array<TodoItemsByMonth>, item: TodoItemModel): A
     month: { numerical: oldMonth },
     year: oldYear
   });
-
-  // eventTime of updated item has passed
-  if (isBefore) {
-    return replaceAtIndex(items, oldMColIdx);
-  }
 
   const oldMCol = { ...items[oldMColIdx] };
 

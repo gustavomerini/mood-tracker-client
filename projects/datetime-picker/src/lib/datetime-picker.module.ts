@@ -22,4 +22,4 @@ import { calendarReducer } from './store';
   ],
   exports: [DatetimePickerComponent]
 })
-export class DatetimePickerModule {}
+export class DatetimePickerModule { }

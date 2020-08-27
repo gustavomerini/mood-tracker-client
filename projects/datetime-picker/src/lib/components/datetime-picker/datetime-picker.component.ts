@@ -6,11 +6,11 @@ import {
   Output,
   EventEmitter,
   OnDestroy,
-  Input
+  Input,
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { Observable, Subscriber } from 'rxjs';
+import { take, map, mergeMap } from 'rxjs/operators';
 import moment from 'moment';
 
 import {
@@ -20,7 +20,8 @@ import {
   DatetimeSerialized,
   TimeSerialized,
   calendarSelectors,
-  DatetimeObject
+  DatetimeObject,
+  TimeLimits,
 } from '../../store';
 
 @Component({
@@ -49,34 +50,63 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
   @Output() datetimeSubmit = new EventEmitter<DatetimeSerialized>();
   @Output() cancel = new EventEmitter<undefined>();
 
-  @Input() datetimeInit = new DatetimeObject(moment()).serialized;
-  @Input() datetime$: Observable<DatetimeSerialized>;
-  @Input() resetOnAction = false;
+  @Input() datetime: DatetimeSerialized;
+
+  // Offset in minutes for initial datetime in case no input is set (now + 15 minutes)
+  // when disablePast is true, it will be used for comparision
+  //  - all dates before now + 15 minutes are disabled
+  @Input() minuteOffset = 15;
+
+  disabledCurrent$: Observable<boolean> = this.selectedDatetime$.pipe(
+    mergeMap((datetime) => {
+      const date = datetime.date;
+      return this.disabledPast$(date).pipe(
+        map((is) => is)
+      );
+    })
+  );
+
+  timeLimits$: Observable<TimeLimits> = this.selectedDatetime$.pipe(
+    mergeMap((datetime) => {
+      const date = datetime.date;
+      return this.compareDate$(date).pipe(
+        map((res: -1 | 0 | 1) => {
+          const defaultLimits: TimeLimits = {
+            min: { hour: 0, minute: 0 },
+            max: { hour: 23, minute: 59 }
+          };
+          if (this.disablePast && res === 0) {
+            const n = moment().add(15, 'minutes');
+            return {
+              min: { hour: n.hour(), minute: n.minute() },
+              max: { hour: 23, minute: 59 }
+            };
+          }
+          return defaultLimits;
+        })
+      );
+    })
+  );
+
   @Input() disablePast = false;
 
-  private datetime$$ = new BehaviorSubject<DatetimeSerialized>(undefined);
-  private dtSub = new Subscriber<DatetimeSerialized>(datetime =>
-    this.datetime$$.next(datetime)
-  );
-  private resetSub = new Subscriber<DatetimeSerialized>(datetime => {
-    this.dispatchReset(datetime);
+  private dt: DatetimeSerialized;
+
+  private dtSub = new Subscriber<DatetimeSerialized>(datetime => {
+    this.dt = datetime;
   });
 
   constructor(private store: Store<{ calendar: calendarReducer.State }>) { }
 
-  private actionSub: Subscriber<any> = new Subscriber((dt) => {
-    if (this.resetOnAction) this.dispatchReset(dt);
-  });
-
   ngOnInit(): void {
-    this.selectedDatetime$.subscribe(this.dtSub);
-    if (this.datetime$) {
-      this.datetime$.subscribe(this.resetSub);
+    if (this.datetime == null) {
+      const n = moment().add(this.minuteOffset, 'minutes');
+      this.dt = new DatetimeObject(n).serialized;
     } else {
-      this.dispatchReset();
+      this.dt = this.datetime;
     }
-    this.datetimeSubmit.subscribe(this.actionSub);
-    this.cancel.subscribe(this.actionSub);
+    this.dispatchReset();
+    this.selectedDatetime$.subscribe(this.dtSub);
   }
 
   isSelected$(date: number): Observable<boolean> {
@@ -86,14 +116,27 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
     );
   }
 
-  isPast$(date?: number): Observable<boolean> {
-    return this.month$.pipe(
-      map((m: MonthSerialized) => {
-        if (!this.disablePast) {
-          return false;
+  disabledPast$(date: number): Observable<boolean> {
+    return this.compareDate$(date).pipe(
+      map((res: -1 | 0 | 1) => {
+        if (this.disablePast) {
+          return res === -1;
         }
-        const n = moment().subtract(1, 'days');
-        return n.isAfter(moment({ year: m.year, month: m.numerical, date }));
+        return false;
+      })
+    );
+  }
+
+  private compareDate$(date: number): Observable<-1 | 0 | 1> {
+    return this.month$.pipe(
+      map((m) => {
+        const n = moment().add(this.minuteOffset, 'minutes');
+        const dtMoment = moment({ year: m.year, month: m.numerical, date });
+        if (n.isSame(dtMoment, 'date')) {
+          return 0;
+        }
+        const isBefore = n.isAfter(moment({ year: m.year, month: m.numerical, date }), 'date');
+        return isBefore ? -1 : 1;
       })
     );
   }
@@ -119,7 +162,7 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
   }
 
   onOk() {
-    this.datetimeSubmit.emit(this.datetime$$.value);
+    this.datetimeSubmit.emit(this.dt);
   }
 
   onCancel() {
@@ -128,12 +171,10 @@ export class DatetimePickerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.dtSub.unsubscribe(); // setting datetime subject
-    this.actionSub.unsubscribe(); // reset state on action
-    this.resetSub.unsubscribe(); // reset state for inputs
   }
 
-  private dispatchReset(datetime?: DatetimeSerialized): void {
-    const dt = datetime ? datetime : this.datetimeInit;
+  private dispatchReset(): void {
+    const dt = this.dt;
     this.store.dispatch(calendarActions.reset({ dt }));
   }
 }

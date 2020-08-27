@@ -19,6 +19,11 @@ export interface DatetimeSerialized extends Serialized {
 
 export type TimeSerialized = Pick<DatetimeSerialized, 'hour' | 'minute'>;
 
+export interface TimeLimits {
+  min: TimeSerialized;
+  max: TimeSerialized;
+}
+
 export class DatetimeObject implements ISerializable {
   readonly year: number;
   readonly month: number;

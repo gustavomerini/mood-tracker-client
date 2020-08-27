@@ -23,11 +23,11 @@ export const initialState: State = {
 
 const calendarReducer = createReducer(
   initialState,
-  on(actions.reset, (_, { dt: datetime }) => {
+  on(actions.reset, (_, { dt: datetime }: { dt: DatetimeSerialized }) => {
     const m = datetime ? undefined : moment();
     const dt: DatetimeSerialized = m
       ? new DatetimeObject(m).serialized
-      : (datetime as DatetimeSerialized);
+      : datetime;
     const month: MonthSerialized = m
       ? new MonthObject(m).serialized
       : new MonthObject(moment({ month: dt.month, year: dt.year })).serialized;

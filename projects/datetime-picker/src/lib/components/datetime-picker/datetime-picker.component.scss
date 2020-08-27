@@ -36,7 +36,7 @@ $dtp-alert-color: #cc4b37 !default;
   align-items: center;
   flex-basis: 30px;
   &.top {
-    align-items: flex-end;
+    align-items: center;
     border-bottom: 1px solid;
     h3 {
       font-size: 20px;
@@ -48,7 +48,14 @@ $dtp-alert-color: #cc4b37 !default;
     }
     .year {
       text-align: left;
-      flex-basis: 50%;
+      flex-basis: 20%;
+    }
+    .time {
+      text-align: left;
+      margin-right: 5px;
+    }
+    .time h3 {
+      font-size: 17px;
     }
     .nav a {
       @include button(
@@ -69,6 +76,7 @@ $dtp-alert-color: #cc4b37 !default;
     .nav {
       text-align: right;
       flex-basis: auto;
+      align-self: flex-end;
     }
   }
   &.day-labels {

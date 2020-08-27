@@ -5,6 +5,7 @@ import {
   ViewChild,
   ViewContainerRef,
   OnDestroy,
+  TemplateRef,
 } from '@angular/core';
 import { ViewManagementService } from '../../services/view-management.service';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -33,12 +34,12 @@ export class ModalComponent implements OnDestroy {
   private hiddenSubscription: Subscription;
 
   hide() {
-    this.content.detach();
+    this.content.clear();
     this.hidden$$.next(true);
   }
 
-  show(viewId: number) {
-    this.content.insert(this.viewService.getView(viewId));
+  show(template: TemplateRef<any>) {
+    this.content.insert(this.viewService.createViewFromTemplate(template));
     this.hidden$$.next(false);
   }
 

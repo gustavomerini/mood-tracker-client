@@ -6,8 +6,11 @@
     <div class="cell year">
       <h3>{{ (month$ | async).year }}</h3>
     </div>
+    <div class="cell time">
+      <h3>{{ (selectedTime$ | async).hour }} : {{ (selectedTime$ | async).minute }}</h3>
+    </div>
     <div class="cell nav">
-      <a *ngIf="!(isPast$() | async)" class="prev" (click)="showPrev()">
+      <a (click)="showPrev()">
         <i class="gg-arrow-left-r"></i>
       </a>
       <a class="next" (click)="showNext()">
@@ -28,7 +31,7 @@
       <ng-container *ngFor="let date of dates$ | async">
         <ng-container
           *ngTemplateOutlet="
-            (isPast$(date) | async) ? disabledDayTpl : enabledDayTpl;
+            (disabledPast$(date) | async) ? disabledDayTpl : enabledDayTpl;
             context: { $implicit: date }">
         </ng-container>
       </ng-container>
@@ -42,7 +45,10 @@
   <div class="row time-picker">
     <moods-time-picker
       [time]="selectedTime$ | async"
-      (timeChange)="onTimeChange($event)"></moods-time-picker>
+      (timeChange)="onTimeChange($event)"
+      [disabled]="disabledCurrent$ | async"
+      [timeLimits]="timeLimits$ | async">
+    </moods-time-picker>
     <a class="btn ok" (click)="onOk()">OK</a>
     <a class="btn cancel" (click)="onCancel()">Cancel</a>
   </div>

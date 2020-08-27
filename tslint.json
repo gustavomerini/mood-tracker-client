@@ -37,6 +37,7 @@
       "check-preblock",
       "check-postbrace"
     ],
+    "space-within-parens": 0,
     "member-ordering": [
       true,
       {

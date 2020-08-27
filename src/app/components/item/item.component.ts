@@ -5,7 +5,9 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  ViewChild,
+  TemplateRef
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -13,7 +15,7 @@ import {
   stringToDatetime,
   datetimeToString
 } from 'datetime-picker';
-import { Subject, BehaviorSubject, Subscriber } from 'rxjs';
+import { Subject, Subscriber } from 'rxjs';
 
 import { TodoItemModel } from '../../store/models';
 import { ViewManagementService } from '../../services/view-management.service';
@@ -39,31 +41,30 @@ export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
     this.calendarAction.subscribe(this.actionSub);
   }
+
   @Input() item: TodoItemModel;
 
-  private eventDatetime$$ = new BehaviorSubject<DatetimeSerialized>(undefined);
-  eventDatetime$ = this.eventDatetime$$.asObservable();
+  @ViewChild('dtPicker') dtPickerTemplate: TemplateRef<any>;
 
-  modalViewId: number;
+  eventDatetime: DatetimeSerialized;
+
   modal = this.viewService.modal;
 
   private calendarAction = new Subject<Action>();
   private actionSub = new Subscriber<Action>(a => {
     if (a.action === 'show') {
-      this.modal.show(this.modalViewId);
-      this.updateEventDatetime();
+      this.eventDatetime = stringToDatetime(this.item.eventTime);
+      this.modal.show(this.dtPickerTemplate);
       return;
     }
     if (a.action === 'ok') {
       const dts = datetimeToString(a.datetime);
       const updateData = { id: this.item.id, eventTime: dts };
       this.itemService.update(updateData);
+      this.eventDatetime = a.datetime;
     }
     this.modal.hide();
   });
-  private updateEventDatetime() {
-    this.eventDatetime$$.next(stringToDatetime(this.item.eventTime));
-  }
 
   toEdit() {
     this.router.navigate(['edit', this.item.id]);
@@ -81,9 +82,8 @@ export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
     this.calendarAction.next({ action: 'show' });
   }
 
-  ngOnInit(): void {
-    this.modalViewId = 100 + this.item.id;
-  }
+  ngOnInit(): void { }
+
   ngOnDestroy() {
     this.actionSub.unsubscribe();
   }

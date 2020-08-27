@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="open">
+  <moods-datetime-picker
+    (cancel)="onCalendarCancel()"
+    (datetimeSubmit)="onCalendarOk($event)"
+    [disablePast]="true"
+    ></moods-datetime-picker>
+</ng-container>
+
+<button (click)="toggle()">Toggle</button>

@@ -31,6 +31,7 @@ import {
   ItemsByMonthEffects,
   appReducers
 } from './store';
+import { DtTestComponent } from './components/dt-test/dt-test.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {
     ListItemDateComponent,
     ItemEditComponent,
     ModalContentDirective,
-    ModalComponent
+    ModalComponent,
+    DtTestComponent
   ],
   imports: [
     BrowserModule,

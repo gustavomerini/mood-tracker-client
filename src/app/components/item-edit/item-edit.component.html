@@ -30,12 +30,9 @@
   </form>
 </div>
 
-<ng-template [appModalContentId]="modalViewId">
+<ng-template #dtPicker>
   <moods-datetime-picker
-    #calendar
     (cancel)="onCalendarCancel()"
     (datetimeSubmit)="onCalendarOk($event)"
-    [datetimeInit]="datetimeInit"
-    [resetOnAction]="true"
     [disablePast]="isNew$ | async"></moods-datetime-picker>
 </ng-template>

@@ -1,26 +1,28 @@
-import { Injectable, ComponentRef, ViewRef } from '@angular/core';
+import { Injectable, ComponentRef, TemplateRef, EmbeddedViewRef, OnDestroy } from '@angular/core';
 import { ModalComponent } from '../components/modal/modal.component';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ViewManagementService {
+export class ViewManagementService implements OnDestroy {
   constructor() { }
 
   get modal(): ModalComponent {
     return this.modalRef.instance;
   }
 
-  private views: Map<number, ViewRef> = new Map();
-
+  private modalToggleSub: Subscription;
   private modalRef: ComponentRef<ModalComponent>;
 
-  registerView(id: number, view: ViewRef): void {
-    this.views.set(id, view);
+  ngOnDestroy() {
+    if (this.modalToggleSub) {
+      this.modalToggleSub.unsubscribe();
+    }
   }
 
-  getView(id: number): ViewRef {
-    return this.views.get(id);
+  createViewFromTemplate(template: TemplateRef<any>): EmbeddedViewRef<any> {
+    return template.createEmbeddedView(null);
   }
 
   registerModalRef(ref: ComponentRef<ModalComponent>): void {
@@ -31,7 +33,7 @@ export class ViewManagementService {
     this.modalRef = ref;
     this.modalRef.instance.hide();
 
-    this.modalRef.instance.hidden$.subscribe(hidden => {
+    this.modalToggleSub = this.modalRef.instance.hidden$.subscribe(hidden => {
       if (hidden) {
         this.setScroll('enabled');
       } else {

@@ -13,12 +13,11 @@
   </div>
 </div>
 
-<ng-template [appModalContentId]="modalViewId">
+<ng-template #dtPicker>
   <moods-datetime-picker
-    #calendar
-    [datetime$]="eventDatetime$"
+    [datetime]="eventDatetime"
     (cancel)="onCalendarCancel()"
-    (datetimeSubmit)="onCalendarOk($event)"
-  >
+    [disablePast]="true"
+    (datetimeSubmit)="onCalendarOk($event)">
   </moods-datetime-picker>
 </ng-template>

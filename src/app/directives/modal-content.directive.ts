@@ -12,7 +12,6 @@ import { ViewManagementService } from '../services/view-management.service';
   selector: '[appModalContentId]',
 })
 export class ModalContentDirective implements OnInit, OnDestroy {
-  @Input() appModalContentId: number;
   private view: EmbeddedViewRef<any>;
 
   constructor(
@@ -22,7 +21,6 @@ export class ModalContentDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.view = this.template.createEmbeddedView(null);
-    this.viewService.registerView(this.appModalContentId, this.view);
   }
 
   ngOnDestroy() {

@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { TodoItemsByMonth, itemsByMonthSelectors, AppState } from '../../store';
+import { ActivatedRoute } from '@angular/router';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'moods-item-list',
@@ -11,11 +13,17 @@ import { TodoItemsByMonth, itemsByMonthSelectors, AppState } from '../../store';
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class ItemListComponent {
-  itemsByMonth$: Observable<Array<TodoItemsByMonth>> = this.store.select(
-    itemsByMonthSelectors.selectItems
-  );
+  itemsByMonth$: Observable<TodoItemsByMonth[]>;
 
   constructor(
-    private store: Store<AppState>
-  ) { }
+    private store: Store<AppState>,
+    private route: ActivatedRoute
+  ) {
+    this.itemsByMonth$ = this.route.queryParams.pipe(mergeMap((params) => {
+      if (params.past === 'true') {
+        return this.store.select(itemsByMonthSelectors.selectPast);
+      }
+      return this.store.select(itemsByMonthSelectors.selectFuture);
+    }));
+  }
 }

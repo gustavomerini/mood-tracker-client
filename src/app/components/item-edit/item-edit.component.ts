@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, ViewEncapsulation, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
@@ -24,10 +24,10 @@ export class ItemEditComponent implements OnDestroy {
   eventDatetime$ = new BehaviorSubject<DatetimeSerialized>(undefined);
   datetimeInit: DatetimeSerialized;
 
-  modalViewId = 500;
   modal = this.viewService.modal;
-
   form: FormGroup;
+
+  @ViewChild('dtPicker') dtPickerTemplate: TemplateRef<any>;
 
   private submitDisabled$$: BehaviorSubject<boolean> = new BehaviorSubject(
     true
@@ -110,7 +110,7 @@ export class ItemEditComponent implements OnDestroy {
   }
 
   openPicker() {
-    this.modal.show(this.modalViewId);
+    this.modal.show(this.dtPickerTemplate);
   }
 
   onCalendarOk(val: DatetimeSerialized) {
