@@ -55,8 +55,9 @@
       }
     }
   }
-  &[disabled] {
+  &.disabled {
     cursor: not-allowed;
+    pointer-events: none;
     background-color: $dark-gray;
   }
 }

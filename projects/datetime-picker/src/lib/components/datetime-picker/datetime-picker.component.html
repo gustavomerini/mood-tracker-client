@@ -49,7 +49,7 @@
       [disabled]="disabledCurrent$ | async"
       [timeLimits]="timeLimits$ | async">
     </moods-time-picker>
-    <a class="btn ok" (click)="onOk()">OK</a>
+    <a class="btn ok" (click)="onOk()" [ngClass]="{ 'disabled': disabledCurrent$ | async }">OK</a>
     <a class="btn cancel" (click)="onCancel()">Cancel</a>
   </div>
 </div>
