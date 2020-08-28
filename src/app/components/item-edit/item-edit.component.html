@@ -25,7 +25,7 @@
       <textarea id="description" formControlName="description"></textarea>
     </div>
     <div class="submit">
-      <input type="submit" [disabled]="submitDisabled$ | async" />
+      <input type="submit" [ngClass]="{ 'disabled': submitDisabled$ | async }" />
     </div>
   </form>
 </div>
