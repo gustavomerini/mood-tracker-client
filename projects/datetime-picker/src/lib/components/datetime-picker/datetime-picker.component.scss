@@ -51,8 +51,9 @@ $dtp-alert-color: #cc4b37 !default;
       flex-basis: 20%;
     }
     .time {
-      text-align: left;
+      text-align: right;
       margin-right: 5px;
+      flex-grow: 1;
     }
     .time h3 {
       font-size: 17px;
