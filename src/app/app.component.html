@@ -8,7 +8,7 @@
     <a routerLink="new">
       <i class="gg-add-r" title="New task"></i>
     </a>
-    <a routerLink="completed">
+    <a routerLink="" [queryParams]="{'past': true}">
       <i class="gg-calendar-due" title="View completed"></i>
     </a>
   </div>
