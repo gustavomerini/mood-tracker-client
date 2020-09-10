@@ -17,6 +17,10 @@
   border-bottom: 1px solid $light-gray;
 }
 
+:host(.rated) {
+  background-color: lighten(#000, 80%);
+}
+
 .date {
   grid-column: cols-start / 1;
 }

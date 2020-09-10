@@ -7,7 +7,8 @@ import {
   AfterViewInit,
   OnDestroy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  HostBinding
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -31,7 +32,7 @@ type Action = {
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
@@ -45,6 +46,11 @@ export class ItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() item: TodoItemModel;
 
   @ViewChild('dtPicker') dtPickerTemplate: TemplateRef<any>;
+
+  @HostBinding('class.rated')
+  get isRated() {
+    return this.item.mood != null;
+  }
 
   eventDatetime: DatetimeSerialized;
 

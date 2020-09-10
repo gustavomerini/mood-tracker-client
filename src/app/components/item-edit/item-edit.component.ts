@@ -21,8 +21,7 @@ export class ItemEditComponent implements OnDestroy {
   item$: Observable<TodoItemModel>;
   isNew$: Observable<boolean>;
   formattedDate?: string;
-  eventDatetime$ = new BehaviorSubject<DatetimeSerialized>(undefined);
-  datetimeInit: DatetimeSerialized;
+  hasFinished = false;
 
   modal = this.viewService.modal;
   form: FormGroup;
@@ -48,20 +47,11 @@ export class ItemEditComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private viewService: ViewManagementService
   ) {
-    const n = moment();
-
-    this.datetimeInit = {
-      year: n.year(),
-      month: n.month(),
-      date: n.date(),
-      hour: n.hour(),
-      minute: n.clone().add(15, 'minutes').minute(),
-    };
-
     const fieldsGroup = {
       eventTime: ['', Validators.required],
       title: ['', Validators.required],
-      description: ['']
+      description: [''],
+      mood: [null],
     };
 
     this.form = this.formBuilder.group(fieldsGroup);
@@ -93,16 +83,20 @@ export class ItemEditComponent implements OnDestroy {
 
     this.itemSubscription = this.item$.subscribe(i => {
       if (i != null) {
+        this.hasFinished = i.hasFinished;
         this.formattedDate = this.formatDate(i.eventTime);
         this.initialData = {
           title: i.title,
-          description: i.description
+          description: i.description,
+          mood: i.mood || null,
         };
+        console.log(this.initialData);
         this.form.patchValue(i);
       }
     });
 
     this.submitDisabledSubscription = this.form.valueChanges.subscribe(v => {
+      console.log(v);
       this.submitDisabled$$.next(
         this.form.invalid || isEqual(v, this.initialData)
       );
@@ -120,7 +114,6 @@ export class ItemEditComponent implements OnDestroy {
       eventTime: this.formattedDate
     });
     this.modal.hide();
-    this.datetimeInit = val;
   }
 
   onCalendarCancel() {
