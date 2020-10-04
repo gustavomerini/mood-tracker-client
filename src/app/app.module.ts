@@ -32,6 +32,7 @@ import {
   appReducers
 } from './store';
 import { DtTestComponent } from './components/dt-test/dt-test.component';
+import { RatingComponent } from './components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { DtTestComponent } from './components/dt-test/dt-test.component';
     ItemEditComponent,
     ModalContentDirective,
     ModalComponent,
-    DtTestComponent
+    DtTestComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

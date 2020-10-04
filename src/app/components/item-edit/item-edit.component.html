@@ -24,6 +24,12 @@
       </label>
       <textarea id="description" formControlName="description"></textarea>
     </div>
+    <ng-container *ngIf="hasFinished">
+      <div class="form-input">
+        <label for="mood">Mood rating</label>
+        <moods-rating id="mood" formControlName="mood"></moods-rating>
+      </div>
+    </ng-container>
     <div class="submit">
       <input type="submit" [ngClass]="{ 'disabled': submitDisabled$ | async }" />
     </div>
