@@ -14,17 +14,17 @@ export class ListItemDateComponent implements OnInit {
 
   day: number;
   dayOfWeek: string;
-  hour: number;
-  minute: number;
+  hour: string;
+  minute: string;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this._date = moment(this.eventTime);
 
     this.day = this._date.date();
     this.dayOfWeek = this._date.format('ddd');
-    this.hour = this._date.hour();
-    this.minute = this._date.minute();
+    this.hour = this._date.format('HH');
+    this.minute = this._date.format('mm');
   }
 }
