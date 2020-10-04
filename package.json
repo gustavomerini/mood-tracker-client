@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "full-build": "ng build datetime-picker && ng build mq-tools && ng build",
+    "docker": "./scripts/docker/run.sh",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -25,7 +27,7 @@
     "@ngrx/schematics": "^9.0.0",
     "@ngrx/store": "^9.0.0",
     "@ngrx/store-devtools": "^9.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "moment": "^2.24.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
