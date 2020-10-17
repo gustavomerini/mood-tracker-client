@@ -1,6 +1,6 @@
 {
   "name": "mood-tracker-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +11,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "files": [
+    "./dist/mood-tracker-client/**/*"
+  ],
   "dependencies": {
     "@angular/animations": "~9.1.11",
     "@angular/common": "~9.1.11",
